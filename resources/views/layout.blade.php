@@ -27,16 +27,17 @@
                 <button type="button" class="btn btn-outline-primary mr-md-3r dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
 
                 </button>
+                @if(auth()->user()->role_id > 0)
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/video-upload">Загрузить видео</a>
-                    @if(auth()->user()->role_id == 2)
+                    @if(auth()->user()->role_id >= 2)
                         <a class="dropdown-item" href="#">Another action</a>
                         <a class="dropdown-item" href="#">Something else here</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Separated link</a>
                     @endif
-
                 </div>
+                @endif
             </div>
 {{--            <a class="btn btn-outline-primary mr-md-3" href="/login">Профиль</a>--}}
             <!-- кнопка тригера формы -->
