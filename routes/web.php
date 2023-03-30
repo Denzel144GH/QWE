@@ -94,9 +94,16 @@ Route::get('/video-upload', [ VideoController::class, 'GetVideoUploadForm' ])->n
 Route::post('/video-upload', [ VideoController::class, 'UploadVideo' ])->name('store.video');
 
 Route::get('/updateVideo/{id}', [ VideoController::class, 'GetUpdateVideo' ]);
-Route::post('/updateVideo', [ VideoController::class, 'UpdateVideo' ])->name('update.video');
+Route::post('/updateVideo/{id}', [ VideoController::class, 'UpdateVideo' ])->name('update.video');
+
+//
+
+Route::post('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ])->name('delete-video');
+
+Route::get('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ]);
 //
 //
 //Route::get('/video/all',[ VideoController::class, 'videoall' ]);
 
 Route::get('/video/{id}', [MainController::class,'videoId']);
+

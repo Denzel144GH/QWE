@@ -20,7 +20,7 @@ class VideoController extends Controller
 
         $this->validate($request,[
             'title' => 'required|string|max:70',
-            'video' => 'required|file|mimetypes:video/mp4',
+            'video' => 'required|file|mimetypes:video/webm',
             'preview' => 'required|file|mimes:jpg,jpeg,bmp,png',
             'description' => 'required|string|max:255',
         ]);
