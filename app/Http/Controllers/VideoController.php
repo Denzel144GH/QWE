@@ -59,38 +59,33 @@ class VideoController extends Controller
         return view('updateVideo', ['video' => $video->find($id)]);
     }
 
-    public function UpdateVideo(Request $request){
-        $this->validate($request,[
-            'title' => 'required|string|max:70',
-            'video' => 'required|file|mimetypes:video/mp4',
-            'preview' => 'required|file|mimes:jpg,jpeg,bmp,png',
-            'description' => 'required|string|max:255',
-        ]);
-
-        $fileName = $request->video->getClientOriginalName();
-        $filePath = 'videos/' . $fileName;
+    public function UpdateVideo(Request $request, $id){
+        // $this->validate($request,[
+        //     'title' => 'required|string|max:70',
+        //     'video' => 'required|file|mimetypes:video/mp4',
+        //     'preview' => 'required|file|mimes:jpg,jpeg,bmp,png',
+        //     'description' => 'required|string|max:255',
+        // ]);
+        //dd($id);
 
         $previewName = $request->preview->getClientOriginalName();
         $previewPath = 'preview/' . $previewName;
-
-        $isFileUploaded = Storage::disk('public')->put($filePath, file_get_contents($request->video));
         $isPreviewUploaded = Storage::disk('public')->put($previewPath, file_get_contents($request->preview));
 
-        $url = Storage::disk('public')->url($filePath);
+        if ($isPreviewUploaded) 
+        {
 
-        if ($isFileUploaded && $isPreviewUploaded ) {
             $video = new Video();
             $video = $video->find($request->id);
             $video->title = $request->title;
             $video->description = $request->description;
-            $video->path = $filePath;
             $video->preview = $previewPath;
             $video->save();
-
+            
             return back()
                 ->with ('success','Видео успешно загружено.');
         }
-
+        
         return back()
             ->with('error','Произошла непредвиденная ошибка');
     }

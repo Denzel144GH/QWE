@@ -41,13 +41,6 @@
                             @enderror
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Выберите файл:</label>
-                            <input type="file" name="video" value="{{$video->video}}" id="file_out" class="form-upload__input"/>
-                            @error('video')
-                            <div class="alert alert-danger">{{$message}}</div>
-                            @enderror
-                        </div>
-                        <div class="col-md-6 form-group">
                             <label>Выберите файл превью вашего видео:</label>
                             <input type="file" name="preview" value="{{$video->preview}}" id="preview_out" class="form-upload__input">
                             @error('preview')

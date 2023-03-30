@@ -90,17 +90,14 @@ Route::get('/download/{download?}', ['DownloadController'])->name('download');
 //Route::post('/default', ['DefController'])->name('image.upload');
 Route::post('/default',  [DefController::class,'default']);
 
-Route::get('/video-upload', [ VideoController::class, 'GetVideoUploadForm' ])->name('get.video.upload');
-Route::post('/video-upload', [ VideoController::class, 'UploadVideo' ])->name('store.video');
+Route::get('/video-upload', [ VideoController::class, 'GetVideoUploadForm' ])->name('get.video.upload'); //
+Route::post('/video-upload', [ VideoController::class, 'UploadVideo' ])->name('store.video');            //
 
 Route::get('/updateVideo/{id}', [ VideoController::class, 'GetUpdateVideo' ]);
 Route::post('/updateVideo/{id}', [ VideoController::class, 'UpdateVideo' ])->name('update.video');
 
-//
-
-Route::post('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ])->name('delete-video');
-
 Route::get('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ]);
+Route::post('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ])->name('delete-video');
 //
 //
 //Route::get('/video/all',[ VideoController::class, 'videoall' ]);
