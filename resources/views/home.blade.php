@@ -2,17 +2,15 @@
 @section('title') Главная страница @endsection
 @section('main_content')
     <?php
-    use App\Models\Video;
-    use App\Models\Ticket;
-    $user = auth()->user();
-    $video = new Video();
-    $video = $video->all();
+    
     ?>
 <div class="container">
-
+    <form action="{{route('mainpage')}}" method="GET" class="form-wrap">
+	<input id="title-search-input" type="text" name="search" value="" class="search-form @error('search') is-invalid @enderror" required placeholder="Поиск">
+	<button type="submit" class="search-btn"><span class="icon-search"></span></button>
+</form>
     <div class=" row">
-            @foreach($video as $el)
-
+            @foreach($videos as $el) 
             <a class="col temp hy text-light" href="{{route('video.show',$el->id)}}">
             <table>
                 <tr>

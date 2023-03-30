@@ -28,13 +28,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/test',  [MainController::class,'test']);//test
-Route::get('/testjs', function(){
-    return view('jstemp');
-});
-
-
-Route::get('/',  [MainController::class,'home']);
+Route::get('/',  [MainController::class,'home'])->name('mainpage');
 
 Route::get('/about', function(){
     return view('about');
@@ -58,6 +52,7 @@ Route::name('user.')->group(function(){
     Route::post('/login',[AuthController::class,'login']);
 
     Route::get('/logout', function(){
+        if(Auth::check())
         Auth::logout();
         return redirect('/');
     })->name('logout');

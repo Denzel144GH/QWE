@@ -15,8 +15,14 @@ class VideoController extends Controller
     }
     public function ShowVideo($id)
     {
-        $video = new Video();
-        return view('viewsVideo', ['video' => $video->find($id)]);
+        $video = Video::find($id);
+        $video->views = $video->views+1;
+        $video->save();
+
+        if($video != null)
+            return view('viewsVideo', ['video' => $video]);
+        else
+            return abort(404);
     }
 
     public function UploadVideo(Request $request)
