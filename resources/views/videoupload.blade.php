@@ -45,8 +45,9 @@
                         <div class="col-md-6 form-group">
                             <label>Выберите файл с видео:</label>
 {{--                            <input type="file" name="video" class="form-control"/>--}}
-                            <label for="file_out" class="feedback__label">Загрузить файл</label>
-                            <input type="file" name="video" id="file_out" class="feedback__file">
+
+                            <input type="file" name="video" id="file_out" class="form-upload__input">
+
                             @error('video')
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
@@ -55,8 +56,9 @@
                         <div class="col-md-6 form-group">
                             <label>Выберите файл превью вашего видео:</label>
 
-                            <label for="preview_out" class="feedback__label">Загрузить файл</label>
-                            <input type="file" name="preview" id="preview_out" class="feedback__file">
+
+                            <input type="file" name="preview" id="preview_out" class="form-upload__input">
+
                             @error('preview')
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
@@ -66,6 +68,7 @@
                         </div>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
@@ -74,30 +77,29 @@
 </html>
 @endsection
 <style>
-    .feedback__text {
-        margin-bottom: 7px;
-        font-size: 16px;
-        font-weight: 600;
-        color: #282828;
+
+
+
+
+    .form-upload__input {
+        font-size: 15px;
+        font-weight: 300;
+        font-family: inherit;
     }
 
-    .feedback__label {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 132px;
-        height: 32px;
-        margin: 11px 0 0;
-        padding: 8px 20px 7px;
-        border-radius: 5px;
-        font-size: 12px;
-        text-align: center;
-        background-color: #f5f6f7;
-        color: #282828;
+    .form-upload__input::file-selector-button {
+        margin-right: 20px;
+        padding: 9px 15px;
+        border: none;
+        border-radius: 6px;
+        font-weight: inherit;
+        font-family: inherit;
         cursor: pointer;
     }
 
-    .feedback__file {
-        display: none;
-    }
+
 </style>
+
+<script>
+
+</script>

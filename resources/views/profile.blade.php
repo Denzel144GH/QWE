@@ -9,6 +9,12 @@ $video = new Video();
 $video = $video->all()->where('user_id',$user->id);
 ?>
 <div class="container">
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" onclick="this.parentElement.style.display='none';" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+    @endif
   <div class="QmrM1BpKzwJBiWVcQyz7IA==">
           <div class="ATxV1Om0sePp4lDLnAq3uw==">
                   <div class="b1RziSFTnQbb3ZOTu1biwA==">
@@ -53,6 +59,7 @@ $video = $video->all()->where('user_id',$user->id);
     </div>
 
    <center><h3>
+
            Мои видео
        </h3></center>
     <div class=" row">
@@ -73,9 +80,8 @@ $video = $video->all()->where('user_id',$user->id);
                                       <tr>
                                           <td>
 
-                                              <button type="button"  class="btn btn-outline-danger" data-toggle="modal" data-target="#deletemodel">🗑️</button>
-                                              <button type="button"  class="btn btn-outline-warning" data-toggle="modal" data-target="#updatemodel">✏</button>
-
+                                              <a href="{{route('delete-video',$el->id)}}"><button type="button"  class="btn btn-outline-danger">🗑️</button></a>
+                                             <a href="{{route('update.video',$el->id)}}"><button type="button"  class="btn btn-outline-warning">✏</button></a>
                                           </td>
                                       </tr>
                                   </table>
@@ -84,43 +90,6 @@ $video = $video->all()->where('user_id',$user->id);
                               @endforeach
                           </div>
                   </div>
-
-<div class="modal fade" id="deletemodel" tabindex="-1" role="dialog" aria-labelledby="deletemodel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-dark" id="deletemodel">Вы действительно хотите удалить видео?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-footer">
-                <a  href="logout" class="btn btn-outline-primary">Да</a>
-                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">нет</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="updatemodel" tabindex="-1" role="dialog" aria-labelledby="updatemodel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-dark" id="updatemodel">Вы действительно хотите редактировать видео?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-footer">
-                <a  href="updateVideo/{id}" class="btn btn-outline-primary">Да</a>
-                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">нет</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-  </div>
-
 @endsection
 
 <style scoped>

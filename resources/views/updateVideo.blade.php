@@ -21,9 +21,7 @@
                     <strong>{{ $message }}</strong>
                 </div>
             @endif
-
-
-            <form action="{{ route('update.video') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('update.video',$video->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
 
@@ -44,25 +42,18 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Выберите файл:</label>
-                            {{--                            <input type="file" name="video" class="form-control"/>--}}
-                            <label for="file_out" class="feedback__label">Загрузить файл</label>
-
-                            <input type="file" name="video" value="{{$video->video}}" id="file_out" class="feedback__file"/>
+                            <input type="file" name="video" value="{{$video->video}}" id="file_out" class="form-upload__input"/>
                             @error('video')
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Выберите файл превью вашего видео:</label>
-
-
-                            <input type="file" name="preview" value="{{$video->preview}}" id="preview_out" class="feedback__file">
+                            <input type="file" name="preview" value="{{$video->preview}}" id="preview_out" class="form-upload__input">
                             @error('preview')
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
-
-
                         <div class="col-md-6 form-group">
                             <button type="submit" class="btn btn-success">Загрузить</button>
                         </div>
@@ -76,30 +67,24 @@
 </html>
 @endsection
 <style>
-    .feedback__text {
-        margin-bottom: 7px;
-        font-size: 16px;
-        font-weight: 600;
-        color: #282828;
+
+
+
+
+    .form-upload__input {
+        font-size: 15px;
+        font-weight: 300;
+        font-family: inherit;
     }
 
-    .feedback__label {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 132px;
-        height: 32px;
-        margin: 11px 0 0;
-        padding: 8px 20px 7px;
-        border-radius: 5px;
-        font-size: 12px;
-        text-align: center;
-        background-color: #f5f6f7;
-        color: #282828;
+    .form-upload__input::file-selector-button {
+        margin-right: 20px;
+        padding: 9px 15px;
+        border: none;
+        border-radius: 6px;
+        font-weight: inherit;
+        font-family: inherit;
         cursor: pointer;
     }
 
-    .feedback__file {
-
-    }
 </style>

@@ -7,3 +7,5 @@ import Home from './components/Home'
 Vue.component('upload-file-component', require('./components/UploadFileComponent.vue').default);
 const myApp = createApp(Home)
 myApp.mount('#app')
+
+
