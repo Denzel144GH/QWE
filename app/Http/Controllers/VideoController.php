@@ -60,13 +60,11 @@ class VideoController extends Controller
     }
 
     public function UpdateVideo(Request $request, $id){
-        // $this->validate($request,[
-        //     'title' => 'required|string|max:70',
-        //     'video' => 'required|file|mimetypes:video/mp4',
-        //     'preview' => 'required|file|mimes:jpg,jpeg,bmp,png',
-        //     'description' => 'required|string|max:255',
-        // ]);
-        //dd($id);
+        $this->validate($request,[
+            'title' => 'required|string|max:70',
+            'preview' => 'required|file|mimes:jpg,jpeg,bmp,png',
+            'description' => 'required|string|max:255',
+        ]);
 
         $previewName = $request->preview->getClientOriginalName();
         $previewPath = 'preview/' . $previewName;
@@ -81,9 +79,9 @@ class VideoController extends Controller
             $video->description = $request->description;
             $video->preview = $previewPath;
             $video->save();
-            
+
             return back()
-                ->with ('success','Видео успешно загружено.');
+                ->with ('success','Успешно отредактировано.');
         }
         
         return back()
