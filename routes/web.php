@@ -102,5 +102,5 @@ Route::post('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ])->nam
 //
 //Route::get('/video/all',[ VideoController::class, 'videoall' ]);
 
-Route::get('/video/{id}', [MainController::class,'videoId']);
+Route::get('/video/{id}', [VideoController::class,'ShowVideo'])->name('video.show');
 

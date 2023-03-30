@@ -9,10 +9,14 @@ use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
 {
-
     public function GetVideoUploadForm()
     {
         return view('videoupload');
+    }
+    public function ShowVideo($id)
+    {
+        $video = new Video();
+        return view('viewsVideo', ['video' => $video->find($id)]);
     }
 
     public function UploadVideo(Request $request)

@@ -13,7 +13,7 @@
     <div class=" row">
             @foreach($video as $el)
 
-            <a class="col temp hy text-light" href="video/1">
+            <a class="col temp hy text-light" href="{{route('video.show',$el->id)}}">
             <table>
                 <tr>
                     <td rowspan="5" class="first"><img  src="{{ Storage::url($el->preview) }}" width="256" height="256"></img></td>
