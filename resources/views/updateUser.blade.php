@@ -56,7 +56,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-6 form-group">
-                                <label>Выберите файл с видео:</label>
+                                <label>Выберите файл аватара:</label>
 
                                 <input type="file" name="avatar" id="file_out" class="form-upload__input">
                                 @error('avatar')
