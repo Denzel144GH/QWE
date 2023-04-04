@@ -62,31 +62,37 @@ Route::name('user.')->group(function () {
 
 Route::post('/default',  [DefController::class, 'default']);
 
-Route::get('/updateUser/{id}', [AdminPanelController::class, 'GetUpdateUser']);
-Route::post('/updateUser/{id}', [AdminPanelController::class, 'UpdateUser'])->name('update.user');
-
-Route::get('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser']);
-Route::post('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser'])->name('rapid.User');
-
-Route::get('/deleteUser/{id}', [AdminPanelController::class, 'DeleteUser']);
-Route::post('/deleteUser/{id}', [AdminPanelController::class, 'DeleteUser'])->name('delete.user');
-
-Route::get('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser']);
-Route::post('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser'])->name('rapid.User');
 
 Route::get('/video/{id}', [VideoController::class, 'ShowVideo'])->name('video.show');
 
-//Route::get('/adminPanel',[AdminPanelController::class,'index','searchUser'])->middleware('admin')->name('adminPanel');
-Route::get('/adminPanel',[AdminPanelController::class,'index','searchUser'])->name('adminPanel');
+Route::middleware(['auth'])->group(function () {
 
-Route::group(['middleware' => ['auth']], function () {
+    Route::get('/video-upload', [VideoController::class, 'GetVideoUploadForm'])->name('get.video.upload'); //
+    Route::post('/video-upload', [VideoController::class, 'UploadVideo'])->name('store.video');            //
 
-    Route::get('/video-upload', [ VideoController::class, 'GetVideoUploadForm' ])->name('get.video.upload'); //
-    Route::post('/video-upload', [ VideoController::class, 'UploadVideo' ])->name('store.video');            //
+    Route::get('/updateVideo/{id}', [VideoController::class, 'GetUpdateVideo']);
+    Route::post('/updateVideo/{id}', [VideoController::class, 'UpdateVideo'])->name('update.video');
 
-    Route::get('/updateVideo/{id}', [ VideoController::class, 'GetUpdateVideo' ]);
-    Route::post('/updateVideo/{id}', [ VideoController::class, 'UpdateVideo' ])->name('update.video');
+    Route::get('/deleteVideo/{id}', [VideoController::class, 'DeleteVideo']);
+    Route::post('/deleteVideo/{id}', [VideoController::class, 'DeleteVideo'])->name('delete.video');
 
-    Route::get('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ]);
-    Route::post('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ])->name('delete.video');
+    Route::get('/updateUser/{id}', [AdminPanelController::class, 'GetUpdateUser']);
+    Route::post('/updateUser/{id}', [AdminPanelController::class, 'UpdateUser'])->name('update.user');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+
+    Route::get('/adminPanel', [AdminPanelController::class, 'index', 'searchUser'])->name('adminPanel');
+    
+    Route::get('/updateUser/{id}', [AdminPanelController::class, 'GetUpdateUser']);
+    Route::post('/updateUser/{id}', [AdminPanelController::class, 'UpdateUser'])->name('update.user');
+
+    Route::get('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser']);
+    Route::post('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser'])->name('rapid.User');
+
+    Route::get('/deleteUser/{id}', [AdminPanelController::class, 'DeleteUser']);
+    Route::post('/deleteUser/{id}', [AdminPanelController::class, 'DeleteUser'])->name('delete.user');
+
+    Route::get('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser']);
+    Route::post('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser'])->name('rapid.User');
 });

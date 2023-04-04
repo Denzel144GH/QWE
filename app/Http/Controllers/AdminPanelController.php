@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use TCG\Voyager\Models\Role;
 
 class AdminPanelController extends Controller
 {
@@ -27,46 +28,69 @@ class AdminPanelController extends Controller
     public function GetUpdateUser($id)
     {
         $users = new User();
-        return view('updateUser', ['users' => $users->find($id)]);
+        $roles = new Role();
+        return view('updateUser', ['users' => $users->find($id), 'roles'=>$roles->get()]);
     }
     public function UpdateUser($id, Request $request)
     {
+        if(auth()->user()->role_id < 2)
+            return redirect()->route('mainpage')->with('danger', 'Неожиданная ошибка');
+        if($request->role_id > auth()->user()->role_id)
+            return redirect()->route('adminPanel')->with('danger', 'Нельзя установить роль выше своей');
 
-        $this->validate($request, [
-            'email' => 'required|email|unique:users',
+        $user = new User();
+        $user = $user->find($request->id);
 
-        ]);
+        if($user->email != $request->email)
+        {
+            $this->validate($request, [
+                'email' => 'required|email|unique:users'
+            ]);
+        }
 
-        $users = new User();
-        $users = $users->find($request->id);
-        $users->name = $request->name;
-        $users->email = $request->email;
-        $users->role_id = $request->role_id;
-        $users->save();
+        
+        $user->name = $request->name;
+        if($user->email != $request->email)
+            $user->email = $request->email;
+        $user->role_id = $request->role_id;
+        $user->save();
 
         return redirect()->route('adminPanel')->with('success', 'Пользователь был отредактирован');
     }
 
     public function RapidUser($id, Request $request)
     {
-
+        if(auth()->user()->role_id < 2)
+            return redirect()->route('mainpage')->with('danger', 'Неожиданная ошибка');
+        if($request->role_id < auth()->user()->role_id && auth()->user()->id == $id)
+            return redirect()->route('adminPanel')->with('danger', 'Нельзя установить себе роль');
+        if($request->role_id > auth()->user()->role_id)
+            return redirect()->route('adminPanel')->with('danger', 'Нельзя установить роль выше своей');
         $users = new User();
         $users = $users->find($request->id);
         $users->role_id = $request->role_id = 1;
         $users->save();
 
-        return redirect()->route('adminPanel')->with('success', 'Роль пользователя была изменнена');
+        return redirect()->route('adminPanel')->with('success', 'Роль пользователя была изменена');
     }
     public function DeleteUser($id)
     {
-        $videos = Video::all();
-
-        foreach ($videos->where('user_id', $id) as $el) {
-            $el->delete();
+        if(auth()->user()->role_id < 2)
+            return redirect()->route('mainpage')->with('danger', 'Неожиданная ошибка');
+        if(auth()->user()->id != $id)
+        {
+            $videos = Video::all();
+    
+            foreach ($videos->where('user_id', $id) as $el) {
+                $el->delete();
+            }
+    
+            User::find($id)->delete();
+    
+            return redirect()->route('adminPanel')->with('success', 'Пользователь был удален');
         }
+        else
+            return redirect()->route('adminPanel')->with('danger', 'Нельзя удалить себя');
 
-        User::find($id)->delete();
-
-        return redirect()->route('adminPanel')->with('success', 'Пользователь был удален');
     }
 }

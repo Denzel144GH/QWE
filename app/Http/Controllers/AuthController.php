@@ -18,15 +18,13 @@ class AuthController extends Controller
         }
 
         $validate = Validator::make($request->all(), [
+            'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|string'
         ]);
 
-        if ($validate->fails()) {
-            //
-            //            return \response()->json($validate->errors());
+        if ($validate->fails()) 
             return redirect(route('user.registration'))->withErrors($validate->errors());
-        }
 
         $user = User::create([
             'name' => $request->name,

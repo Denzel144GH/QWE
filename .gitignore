@@ -1,5 +1,6 @@
 /vendor/
 /.idea/
+/.vs/
 node_modules/
 npm-debug.log
 yarn-error.log

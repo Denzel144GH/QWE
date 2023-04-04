@@ -1,7 +1,9 @@
 @extends('layout')
 @section('title')Редактирование пользователя @endsection
 @section('main_content')
+<?php 
 
+?>
 <!DOCTYPE html>
 <html>
 
@@ -46,10 +48,10 @@
                                 <label>Role_id пользователя:</label>
 
                                 <select type="text" name="role_id" required="required">
-                                    <option value="">{{$users->role_id}}</option>
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
+                                    <option value="{{$users->role_id}}">{{$users->role_id}}:{{$users->role->display_name}}</option>
+                                    @foreach($roles as $role)
+                                    <option value="{{$role->id}}">{{$role->id}}: {{$role->display_name}}</option>
+                                    @endforeach
 
                                 </select>
                                 @error('role_id')

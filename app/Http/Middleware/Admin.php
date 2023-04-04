@@ -18,7 +18,7 @@ class Admin
     {
         if(!auth()->check())
             return redirect(route('user.registration'));
-        else if(auth()->user()->role < 2)
+        else if(auth()->user()->role_id < 2)
             abort(403);
         else
             return $next($request);
