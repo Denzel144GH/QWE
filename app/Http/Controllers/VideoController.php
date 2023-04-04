@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -31,7 +30,7 @@ class VideoController extends Controller
 
         $this->validate($request,[
             'title' => 'required|string|max:70',
-            'video' => 'required|file|mimetypes:video/mp4',
+            'video' => 'required|file|mimetypes:video/webm',
             'preview' => 'required|file|mimes:jpg,jpeg,bmp,png',
             'description' => 'required|string|max:255',
         ]);
@@ -54,7 +53,7 @@ class VideoController extends Controller
             $video->path = $filePath;
             $video->preview = $previewPath;
             $video->user_id = Auth::user()->id;
-            $video->views = 0;
+            $video->views =0;
             $video->save();
 
             return back()
@@ -66,17 +65,11 @@ class VideoController extends Controller
     }
 
     public function GetUpdateVideo($id){
-
         $video = new Video;
-        if (Auth::user($id) === Video::('user_id')){
         return view('updateVideo', ['video' => $video->find($id)]);
-        else
-            return abort(404);
-        };
     }
 
     public function UpdateVideo(Request $request, $id){
-
         $this->validate($request,[
             'title' => 'required|string|max:70',
             'preview' => 'required|file|mimes:jpg,jpeg,bmp,png',
@@ -87,7 +80,7 @@ class VideoController extends Controller
         $previewPath = 'preview/' . $previewName;
         $isPreviewUploaded = Storage::disk('public')->put($previewPath, file_get_contents($request->preview));
 
-        if ($isPreviewUploaded)
+        if ($isPreviewUploaded) 
         {
 
             $video = new Video();
@@ -97,9 +90,10 @@ class VideoController extends Controller
             $video->preview = $previewPath;
             $video->save();
 
-            return redirect()->route('user.profile')->with('success','Видео было успешно обновленно');
+            return back()
+                ->with ('success','Успешно отредактировано.');
         }
-
+        
         return back()
             ->with('error','Произошла непредвиденная ошибка');
     }
@@ -107,7 +101,6 @@ class VideoController extends Controller
     public function deleteVideo($id){
 
         Video::find($id)->delete();
-        return redirect()->route('user.profile')->with('success','Видео было удалено');
     }
 //    public function index()
 //    {

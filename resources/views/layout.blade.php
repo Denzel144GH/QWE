@@ -17,19 +17,24 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow ">
     <a class="my-0 mr-md-auto font-weight-normal h5 text-dark" href="/" >Томское управление лесами</a>
     <nav class="my-2 my-md-0 mr-md-3">
-
+        <a class="p-2 text-dark" href="">Видео</a>
+        <a class="p-2 text-dark" href="/post">Посты</a>
+        <a class="p-2 text-dark" href="#">Pricing</a>
         @if(Auth::check())
             <!-- Пример разделенной кнопки опасности-->
             <div class="btn-group">
                 <a  class="btn btn-outline-primary mr-md-3r" href="/login">Профиль</a>
                 <button type="button" class="btn btn-outline-primary mr-md-3r dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
+
                 </button>
                 @if(auth()->user()->role_id > 0)
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/video-upload">Загрузить видео</a>
                     @if(auth()->user()->role_id >= 2)
-                        <a class="dropdown-item" href="/adminPanel">Админ панель</a>
-
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a>
                     @endif
                 </div>
                 @endif
@@ -39,6 +44,7 @@
             <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">
                 Выход
             </button>
+
             <!-- форма -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">

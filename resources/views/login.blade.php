@@ -1,12 +1,10 @@
 @extends('layout')
 @section('title') Авторизация @endsection
 @section('main_content')
-
 <div class="container">
     <br>
     <form method="POST" action="{{ route('user.login') }}">
       @csrf
-
       <div class="form-group">
         <label for="email" class="form-label">Ваша электронная почта</label>
         <input type="email" class="form-control" id="email" placeholder="E-mail" name="email">
@@ -25,9 +23,7 @@
       <div class="form-group">
         <button type="submit" class="btn btn-secondary">Войти</button>
       </div>
-
     </form>
 
   </div>
-
 @endsection

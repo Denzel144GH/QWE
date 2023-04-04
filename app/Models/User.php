@@ -23,10 +23,6 @@ class User extends \TCG\Voyager\Models\User
         'password',
     ];
 
-    public function isAdmin()
-    {
-        return $this->is_admin === 1;
-    }
     /**
      * The attributes that should be hidden for arrays.
      *

@@ -27,8 +27,7 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//
-//Route::get('/adminPanel',  [AuthController::class,'searchUser'])->name('searchUser');
+
 Route::get('/',  [MainController::class,'home'])->name('mainpage');
 
 Route::get('/about', function(){
@@ -71,46 +70,32 @@ Route::name('user.')->group(function(){
 
 });
 
-
-    Route::get('/RapidUser/{id}', [ AdminPanelController::class, 'RapidUser' ]);
-    Route::post('/RapidUser/{id}', [ AdminPanelController::class, 'RapidUser' ])->name('rapid.User');
-
-
-
-
-//Route::resource('/download', 'DownloadController')->only(['store', 'update', 'destroy']);
-//Route::get('/download/{download?}', ['DownloadController'])->name('download');
-
-//Route::post('/default', ['DefController'])->name('image.upload');
-Route::post('/default',  [DefController::class,'default']);
-
-
-Route::get('/updateUser/{id}', [ AdminPanelController::class, 'GetUpdateUser' ]);
-Route::post('/updateUser/{id}', [ AdminPanelController::class, 'UpdateUser' ])->name('update.user');
-
-Route::get('/RapidUser/{id}', [ AdminPanelController::class, 'RapidUser' ]);
-Route::post('/RapidUser/{id}', [ AdminPanelController::class, 'RapidUser' ])->name('rapid.User');
-
-Route::get('/deleteUser/{id}', [ AdminPanelController::class, 'DeleteUser' ]);
-Route::post('/deleteUser/{id}', [ AdminPanelController::class, 'DeleteUser' ])->name('delete.user');
-
-
-Route::get('/video/{id}', [VideoController::class,'ShowVideo'])->name('video.show');
-
-Route::get('/adminPanel',[AdminPanelController::class,'index','searchUser'])->middleware('isadmin')->name('adminPanel');
-
-Route::group(['middleware' => ['auth']], function () {
-
-    Route::get('/video-upload', [ VideoController::class, 'GetVideoUploadForm' ])->name('get.video.upload'); //
-    Route::post('/video-upload', [ VideoController::class, 'UploadVideo' ])->name('store.video');            //
-
-    Route::get('/updateVideo/{id}', [ VideoController::class, 'GetUpdateVideo' ]);
-    Route::post('/updateVideo/{id}', [ VideoController::class, 'UpdateVideo' ])->name('update.video');
-
-    Route::get('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ]);
-    Route::post('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ])->name('delete.video');
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
 });
 
 
 
+
+//Route::post('/post','post');
+
+Route::resource('/download', 'DownloadController')->only(['store', 'update', 'destroy']);
+Route::get('/download/{download?}', ['DownloadController'])->name('download');
+
+//Route::post('/default', ['DefController'])->name('image.upload');
+Route::post('/default',  [DefController::class,'default']);
+
+Route::get('/video-upload', [ VideoController::class, 'GetVideoUploadForm' ])->name('get.video.upload'); //
+Route::post('/video-upload', [ VideoController::class, 'UploadVideo' ])->name('store.video');            //
+
+Route::get('/updateVideo/{id}', [ VideoController::class, 'GetUpdateVideo' ]);
+Route::post('/updateVideo/{id}', [ VideoController::class, 'UpdateVideo' ])->name('update.video');
+
+Route::get('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ]);
+Route::post('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ])->name('delete-video');
+//
+//
+//Route::get('/video/all',[ VideoController::class, 'videoall' ]);
+
+Route::get('/video/{id}', [VideoController::class,'ShowVideo'])->name('video.show');
 
