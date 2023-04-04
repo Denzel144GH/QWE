@@ -39,7 +39,7 @@ class AdminPanelController extends Controller
         $user = $user->find($request->id);
 
         $this->validate($request, [
-                'avatar' => 'required|file|mimes:jpg,jpeg,bmp,png'
+                'avatar' => 'file|mimes:jpg,jpeg,bmp,png'
             ]);
         
         
