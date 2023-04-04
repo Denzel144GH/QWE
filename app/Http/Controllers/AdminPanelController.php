@@ -6,9 +6,7 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Video;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 
 class AdminPanelController extends Controller
 {
@@ -39,6 +37,21 @@ class AdminPanelController extends Controller
 
         $user = new User();
         $user = $user->find($request->id);
+
+        $this->validate($request, [
+                'avatar' => 'required|file|mimes:jpg,jpeg,bmp,png'
+            ]);
+        
+        
+        if($request->avatar != null)
+         {
+            $fileName = $request->avatar->getClientOriginalName();
+            $filePath = 'users/' . $fileName;
+            $isFileUploaded = Storage::disk('public')->put($filePath, file_get_contents($request->avatar));
+            if ($isFileUploaded) 
+                $user->avatar = $filePath;
+         }
+        
 
         if($user->email != $request->email)
         {

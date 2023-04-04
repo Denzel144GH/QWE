@@ -1,9 +1,6 @@
 @extends('layout')
 @section('title')Редактирование пользователя @endsection
 @section('main_content')
-<?php 
-
-?>
 <!DOCTYPE html>
 <html>
 
@@ -55,6 +52,14 @@
 
                                 </select>
                                 @error('role_id')
+                                <div class="alert alert-danger">{{$message}}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Выберите файл с видео:</label>
+
+                                <input type="file" name="avatar" id="file_out" class="form-upload__input">
+                                @error('avatar')
                                 <div class="alert alert-danger">{{$message}}</div>
                                 @enderror
                             </div>
