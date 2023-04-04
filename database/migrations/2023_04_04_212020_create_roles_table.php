@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHallsTable extends Migration
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateHallsTable extends Migration
      */
     public function up()
     {
-        Schema::create('halls', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 64);
-            $table->string('desc', 512);
-            $table->unsignedInteger('countRows');
-            $table->unsignedInteger('countColumns');
+        Schema::create('roles', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name')->unique();
+            $table->string('display_name');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateHallsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('halls');
+        Schema::dropIfExists('roles');
     }
 }

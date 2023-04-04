@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Movie;
 use App\Models\User;
+use App\Models\Role;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
-use TCG\Voyager\Models\Role;
 
 class AdminPanelController extends Controller
 {

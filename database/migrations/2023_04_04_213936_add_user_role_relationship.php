@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNewsTable extends Migration
+class AddUserRoleRelationship extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateNewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('news', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->text('body');
-            $table->string('image');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->bigInteger('role_id')->unsigned()->change();
+            $table->foreign('role_id')->references('id')->on('roles');
         });
     }
 
@@ -29,6 +26,6 @@ class CreateNewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('news');
+        //
     }
 }

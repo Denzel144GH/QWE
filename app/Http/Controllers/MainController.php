@@ -2,13 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Seance;
-use Illuminate\Http\Request;
-use App\Models\Movie;
 use App\Models\Video;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
-use Carbon\Carbon;
 
 class MainController extends Controller
 {
