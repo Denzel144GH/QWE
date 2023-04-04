@@ -16,7 +16,7 @@ $video = $video->all()->where('user_id',$user->id);
         </div>
     @endif
   <div class="QmrM1BpKzwJBiWVcQyz7IA==">
-          <div class="ATxV1Om0sePp4lDLnAq3uw==">
+
                   <div class="b1RziSFTnQbb3ZOTu1biwA==">
                           <div class="vPib8WA0Q1LBbqmrmssw9w==">
                                   <div class="jsOTYX0pH3oBjSKDdxqB+g==">
@@ -54,7 +54,7 @@ $video = $video->all()->where('user_id',$user->id);
                                           </div>
                                   </div>
                           </div>
-                  </div>
+
           </div>
     </div>
 
@@ -68,7 +68,7 @@ $video = $video->all()->where('user_id',$user->id);
                               <p class="col temp hy text-light">
                                   <table>
                                       <tr>
-                                          <td rowspan="5" class="first"><a href="video/1" > <img  src="{{ Storage::url($el->preview) }}" width="256" height="256"></img></a></td>
+                                          <td rowspan="5" class="first"><a href="{{route('video.show',$el->id)}}" > <img  src="{{ Storage::url($el->preview) }}" width="256" height="256"></img></a></td>
                                           <td><strong>{{$el->title}}</strong></td>
                                       </tr>
                                       <tr>
@@ -79,8 +79,7 @@ $video = $video->all()->where('user_id',$user->id);
                                       </tr>
                                       <tr>
                                           <td>
-
-                                              <a href="{{route('delete-video',$el->id)}}"><button type="button"  class="btn btn-outline-danger">🗑️</button></a>
+                                              <a href="{{route('delete.video',$el->id)}}"><button type="button"  class="btn btn-outline-danger">🗑️</button></a>
                                              <a href="{{route('update.video',$el->id)}}"><button type="button"  class="btn btn-outline-warning">✏</button></a>
                                           </td>
                                       </tr>

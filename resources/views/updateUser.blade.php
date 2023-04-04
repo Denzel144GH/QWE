@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title')Обновление записи @endsection
+@section('title')Редактирование пользователя @endsection
 @section('main_content')
 
     <!DOCTYPE html>
@@ -12,7 +12,7 @@
 <div class="container mt-5">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h2>Форма для обновление видео</h2>
+            <h2>Форма для обновлений пользователей</h2>
         </div>
         <div class="panel-body">
             @if ($message = Session::get('success'))
@@ -21,34 +21,41 @@
                     <strong>{{ $message }}</strong>
                 </div>
             @endif
-            <form action="{{ route('update.video',$video->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('update.user',$users->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
 
                     <div class="col-md-12">
                         <div class="col-md-6 form-group">
-                            <label>Тема:</label>
-                            <input type="text" name="title" value="{{$video->title}}" class="form-control"/>
-                            @error('title')
+                            <label>Имя пользователя:</label>
+                            <input type="name" name="name" value="{{$users->name}}" class="form-control"/>
+                            @error('name')
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Описание:</label>
-                            <input type="text" name="description" value="{{$video->description}}" class="form-control"/>
-                            @error('description')
+                            <label>Почта пользователя:</label>
+                            <input type="email" name="email" value="{{$users->email}}" class="form-control"/>
+                            @error('email')
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Выберите файл превью вашего видео:</label>
-                            <input type="file" name="preview" value="{{$video->preview}}" id="preview_out" class="form-upload__input">
-                            @error('preview')
+                            <label>Role_id пользователя:</label>
+
+                            <select type="text" name="role_id"  required="required">
+                                <option value="">{{$users->role_id}}</option>
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+
+                            </select>
+                            @error('role_id')
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
                         <div class="col-md-6 form-group">
-                            <button type="submit" class="btn btn-success">Загрузить</button>
+                            <button type="submit" class="btn btn-success">Редактировать</button>
                         </div>
                     </div>
                 </div>

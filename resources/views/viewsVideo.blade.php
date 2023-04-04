@@ -3,7 +3,8 @@
 @section('main_content')
 <?php
 use App\Models\User;
-$user = User::where('id',$video->user_id)->get()->first();
+use App\Models\Video;
+$user = User::where('id', $video->user_id)->get()->first();
 ?>
     <div class="container">
         <br>
@@ -14,7 +15,7 @@ $user = User::where('id',$video->user_id)->get()->first();
             <h1>{{$video->title}}</h1>
             <table>
                 <tr>
-                    <td rowspan="5" class="first"><img class="image"src="https://yt3.googleusercontent.com/ppnNjtiyOcdgkT2Z_o6aUoV1FydsoeZbwIIGV8Z0PJZf39UvUTZhkLWgCz0sg9EfKNWqff7Qxzc=s88-c-k-c0x00ffffff-no-rj" width="64" height="64"></img></td>
+                    <td rowspan="5" class="first"><img  src="{{ Storage::url($user->avatar) }}" width="64" height="64"></img></td>
                     <td><strong>{{$user->name}}</strong></td>
                 </tr>
                 <tr>
