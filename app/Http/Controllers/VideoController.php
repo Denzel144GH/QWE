@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class VideoController extends Controller
 {
@@ -36,10 +37,10 @@ class VideoController extends Controller
             'description' => 'required|string|max:255',
         ]);
 
-        $fileName = $request->video->getClientOriginalName();
+        $fileName = Str::random(64);
         $filePath = 'videos/' . $fileName;
 
-        $previewName = $request->preview->getClientOriginalName();
+        $previewName = Str::random(64);
         $previewPath = 'preview/' . $previewName;
 
         $isFileUploaded = Storage::disk('public')->put($filePath, file_get_contents($request->video));
@@ -80,7 +81,7 @@ class VideoController extends Controller
         ]);
         if($request->preview != null)
         {
-            $previewName = $request->preview->getClientOriginalName();
+            $previewName = Str::random(64);
             $previewPath = 'preview/' . $previewName;
             $isPreviewUploaded = Storage::disk('public')->put($previewPath, file_get_contents($request->preview));
         }

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Video;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class AdminPanelController extends Controller
 {
@@ -45,9 +47,10 @@ class AdminPanelController extends Controller
         
         if($request->avatar != null)
          {
-            $fileName = $request->avatar->getClientOriginalName();
+            $fileName = Str::random(64);
             $filePath = 'users/' . $fileName;
             $isFileUploaded = Storage::disk('public')->put($filePath, file_get_contents($request->avatar));
+
             if ($isFileUploaded) 
                 $user->avatar = $filePath;
          }
