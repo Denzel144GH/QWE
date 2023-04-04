@@ -16,10 +16,11 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        // if(!auth()->check() || auth()->user()->role != 1)
-        // {
-        //     abort(403);
-        // }
-        return $next($request);
+        if(!auth()->check())
+            return redirect(route('user.registration'));
+        else if(auth()->user()->role < 2)
+            abort(403);
+        else
+            return $next($request);
     }
 }

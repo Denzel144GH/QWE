@@ -10,6 +10,6 @@ class DefController extends Controller
     {
         $path = $request->file('image')->store('uploads', 'publick');
 
-        return view('default',[$path=>$path]);
+        return view('default', [$path => $path]);
     }
 }

@@ -28,74 +28,65 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/',  [MainController::class,'home'])->name('mainpage');
+Route::get('/',  [MainController::class, 'home'])->name('mainpage');
+Route::name('user.')->group(function () {
 
-Route::get('/about', function(){
-    return view('about');
-});
-Route::get('/films', [MainController::class,'films']);
-Route::get('/films/{id}', [MainController::class,'filmsId']);
-Route::get('/ticket/{idSeance}', [MainController::class,'ticketbuy']);
-Route::resource('/news', NewsController::class);
+    Route::get('/profile', [AuthController::class, 'profile'])->middleware('auth')->name('profile');
 
-Route::name('user.')->group(function(){
-
-    Route::get('/profile',[AuthController::class,'profile'])->middleware('auth')->name('profile');
-
-    Route::get('/login', function(){
-        if(Auth::check()){
+    Route::get('/login', function () {
+        if (Auth::check()) {
             return redirect(route('user.profile'));
         }
         return view('login');
     })->name('login');
 
-    Route::post('/login',[AuthController::class,'login']);
+    Route::post('/login', [AuthController::class, 'login']);
 
-    Route::get('/logout', function(){
-        if(Auth::check())
-        Auth::logout();
+    Route::get('/logout', function () {
+        if (Auth::check())
+            Auth::logout();
         return redirect('/');
     })->name('logout');
 
-    Route::get('/registration', function(){
-        if(Auth::check()){
+    Route::get('/registration', function () {
+        if (Auth::check()) {
             return redirect(route('user.profile'));
         }
         return view('register');
     })->name('registration');
-    Route::post('/registration',[AuthController::class,'register']);
-
-
-
-
+    Route::post('/registration', [AuthController::class, 'register']);
 });
 
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
+//Route::resource('/download', 'DownloadController')->only(['store', 'update', 'destroy']);
+//Route::get('/download/{download?}', ['DownloadController'])->name('download');
+
+Route::post('/default',  [DefController::class, 'default']);
+
+Route::get('/updateUser/{id}', [AdminPanelController::class, 'GetUpdateUser']);
+Route::post('/updateUser/{id}', [AdminPanelController::class, 'UpdateUser'])->name('update.user');
+
+Route::get('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser']);
+Route::post('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser'])->name('rapid.User');
+
+Route::get('/deleteUser/{id}', [AdminPanelController::class, 'DeleteUser']);
+Route::post('/deleteUser/{id}', [AdminPanelController::class, 'DeleteUser'])->name('delete.user');
+
+Route::get('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser']);
+Route::post('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser'])->name('rapid.User');
+
+Route::get('/video/{id}', [VideoController::class, 'ShowVideo'])->name('video.show');
+
+//Route::get('/adminPanel',[AdminPanelController::class,'index','searchUser'])->middleware('admin')->name('adminPanel');
+Route::get('/adminPanel',[AdminPanelController::class,'index','searchUser'])->name('adminPanel');
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/video-upload', [ VideoController::class, 'GetVideoUploadForm' ])->name('get.video.upload'); //
+    Route::post('/video-upload', [ VideoController::class, 'UploadVideo' ])->name('store.video');            //
+
+    Route::get('/updateVideo/{id}', [ VideoController::class, 'GetUpdateVideo' ]);
+    Route::post('/updateVideo/{id}', [ VideoController::class, 'UpdateVideo' ])->name('update.video');
+
+    Route::get('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ]);
+    Route::post('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ])->name('delete.video');
 });
-
-
-
-
-//Route::post('/post','post');
-
-Route::resource('/download', 'DownloadController')->only(['store', 'update', 'destroy']);
-Route::get('/download/{download?}', ['DownloadController'])->name('download');
-
-//Route::post('/default', ['DefController'])->name('image.upload');
-Route::post('/default',  [DefController::class,'default']);
-
-Route::get('/video-upload', [ VideoController::class, 'GetVideoUploadForm' ])->name('get.video.upload'); //
-Route::post('/video-upload', [ VideoController::class, 'UploadVideo' ])->name('store.video');            //
-
-Route::get('/updateVideo/{id}', [ VideoController::class, 'GetUpdateVideo' ]);
-Route::post('/updateVideo/{id}', [ VideoController::class, 'UpdateVideo' ])->name('update.video');
-
-Route::get('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ]);
-Route::post('/deleteVideo/{id}', [ VideoController::class, 'DeleteVideo' ])->name('delete-video');
-//
-//
-//Route::get('/video/all',[ VideoController::class, 'videoall' ]);
-
-Route::get('/video/{id}', [VideoController::class,'ShowVideo'])->name('video.show');
-
