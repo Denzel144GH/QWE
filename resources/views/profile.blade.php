@@ -23,7 +23,7 @@ $video = $video->all()->where('user_id', $user->id);
                 <div class="jsOTYX0pH3oBjSKDdxqB+g==">
                     <div class="vM5TY03rTJnyg7crh8SJog==">
                         @if($user->avatar == null)
-                        <img src="{{ Storage::url('users/default.png') }}" alt="" class="_9Vd+W3TCjDmuEV7tOCemNA==">
+                        <img src="{{ Storage::url('default.png') }}" alt="" class="_9Vd+W3TCjDmuEV7tOCemNA==">
                         @else
                         <img src="{{ Storage::url($user->avatar) }}" alt="" class="_9Vd+W3TCjDmuEV7tOCemNA==">
                         @endif
