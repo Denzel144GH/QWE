@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Video;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,8 +22,10 @@ class VideoController extends Controller
         $video->views = $video->views + 1;
         $video->save();
 
+        $comments = Comment::Where('video_id', $id)->get();
+
         if ($video != null)
-            return view('viewsVideo', ['video' => $video]);
+            return view('viewsVideo', ['video' => $video,'comments' =>$comments]);
         else
             return abort(404);
     }
@@ -79,8 +82,7 @@ class VideoController extends Controller
             'preview' => 'file|mimes:jpg,jpeg,bmp,png',
             'description' => 'string|max:255',
         ]);
-        if($request->preview != null)
-        {
+        if ($request->preview != null) {
             $previewName = Str::random(64);
             $previewPath = 'preview/' . $previewName;
             $isPreviewUploaded = Storage::disk('public')->put($previewPath, file_get_contents($request->preview));
@@ -92,8 +94,8 @@ class VideoController extends Controller
             $video = $video->find($request->id);
             $video->title = $request->title;
             $video->description = $request->description;
-            if($request->preview != null)
-            $video->preview = $previewPath;
+            if ($request->preview != null)
+                $video->preview = $previewPath;
             $video->save();
 
             return redirect()->route('user.profile')->with('success', 'Видео было успешно обновлено');
@@ -105,8 +107,19 @@ class VideoController extends Controller
 
     public function deleteVideo($id)
     {
-
         Video::find($id)->delete();
         return redirect()->route('user.profile')->with('success', 'Видео было удалено');
+    }
+    public function AddComment(Request $request, $id)
+    {
+        $this->validate($request, [
+            'content' => '|string|max:255',
+        ]);
+        $comment = new Comment();
+        $comment->video_id = $id;
+        $comment->user_id = Auth::user()->id;
+        $comment->content = $request->content;
+        $comment->save();
+        return back();
     }
 }

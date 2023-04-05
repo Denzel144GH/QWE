@@ -1,12 +1,7 @@
 @extends('layout')
 @section('title') @endsection
 @section('main_content')
-<?php
 
-use App\Models\User;
-
-$user = User::where('id', $video->user_id)->get()->first();
-?>
 <div class="container">
     <br>
     <video width="100%" controls>
@@ -16,8 +11,8 @@ $user = User::where('id', $video->user_id)->get()->first();
         <h1>{{$video->title}}</h1>
         <table>
             <tr>
-            <td rowspan="5" class="first"><img  src="{{ Storage::url($user->avatar) }}" width="64" height="64"></img></td>
-                <td><strong>{{$user->name}}</strong></td>
+                <td rowspan="5" class="first"><img class="image" src="{{ Storage::url($video->user->avatar) }}" width="64" height="64"></img></td>
+                <td><strong>{{$video->user->name}}</strong></td>
             </tr>
             <tr>
 
@@ -28,40 +23,28 @@ $user = User::where('id', $video->user_id)->get()->first();
             </tr>
         </table>
     </div>
-    <form class="decor " method="post" action="{{ route('coments.check') }}">
-
+    <form class="decor " method="post" action="{{ route('coments.check',$video->id) }}">
+    @csrf
         <div class="form-inner">
 
-            <textarea placeholder="Сообщение..." value="description"name="description" rows="3"></textarea>
+            <textarea placeholder="Сообщение..." value="content" name="content" rows="3"></textarea>
             <input type="submit" value="Отправить">
         </div>
-
-        <div class="container xr ">
-
-            <img  src="{{ Storage::url($user->avatar) }}" width="40" height="40">
-            <strong>Гусли</strong>
-            <h3 class="txtcomment">укоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапв</h3>
-        </div>
-
-        <div class="container xr">
-            <img  src="{{ Storage::url($user->avatar) }}" width="40" height="40">
-            <h3 class="txtcomment">укоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапв</h3>
-        </div>
-        <div class="container xr">
-            <img  src="{{ Storage::url($user->avatar) }}" width="40" height="40">
-            <h3 class="txtcomment">укоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапв</h3>
-        </div>
-        <div class="container xr">
-            <img  src="{{ Storage::url($user->avatar) }}" width="40" height="40">
-            <h3 class="txtcomment">укоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапвукоывапвыапв</h3>
-        </div>
-
     </form>
+    @foreach($comments as $comment)
+    <div class="container xr">
+        <img class="image" src="{{ Storage::url($comment->user->avatar) }}" width="40" height="40">
+        <strong>{{$comment->user->name}}</strong>
+        <h3 class="txtcomment">{{$comment->content}}</h3>
+    </div>
+    @endforeach
 </div>
+
 <style>
     .image {
         border-radius: 50%;
     }
+
     * {
         box-sizing: border-box;
     }
@@ -72,7 +55,9 @@ $user = User::where('id', $video->user_id)->get()->first();
     .form-inner {
         padding: 50px;
     }
-    .form-inner input, .form-inner textarea {
+
+    .form-inner input,
+    .form-inner textarea {
         display: block;
         width: 100%;
         padding: 0 20px;
@@ -83,16 +68,19 @@ $user = User::where('id', $video->user_id)->get()->first();
         border-radius: 20px;
 
     }
+
     .form-inner input {
         margin-top: 30px;
         background: white;
         font-size: 16px;
 
     }
+
     .form-inner textarea {
         resize: none;
     }
-    .txtcomment{
+
+    .txtcomment {
         font-size: 16px;
         overflow-wrap: anywhere;
         margin-top: 15px;
@@ -100,7 +88,7 @@ $user = User::where('id', $video->user_id)->get()->first();
 
     }
 
-    .xr{
+    .xr {
         width: 60%;
         height: 70%;
         margin: 35px;

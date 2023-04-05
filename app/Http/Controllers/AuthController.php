@@ -23,7 +23,7 @@ class AuthController extends Controller
             'password' => 'required|string'
         ]);
 
-        if ($validate->fails()) 
+        if ($validate->fails())
             return redirect(route('user.registration'))->withErrors($validate->errors());
 
         $user = User::create([

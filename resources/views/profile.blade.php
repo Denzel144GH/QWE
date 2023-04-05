@@ -2,9 +2,7 @@
 @section('title') Профиль @endsection
 @section('main_content')
 <?php
-
 use App\Models\Video;
-use App\Models\Ticket;
 
 $user = auth()->user();
 $video = new Video();
@@ -198,6 +196,7 @@ $video = $video->all()->where('user_id', $user->id);
     .vM5TY03rTJnyg7crh8SJog\=\= ._9Vd\+W3TCjDmuEV7tOCemNA\=\=,
     .vM5TY03rTJnyg7crh8SJog\=\= .xyAnrq\+0QwFpsmgTUiGJFg\=\= {
         border-radius: 16px;
+        border-radius: 50%;
         height: auto;
         overflow: hidden;
         width: 100%;

@@ -3,16 +3,12 @@
 use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainController;
-use App\Http\Controllers\NewsController;
 use App\Http\Controllers\DefController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\Admin\DownloadController;
 
 //use App\Http\Controllers\PostController;
 
-use App\Models\Movie;
-use App\Models\Download;
-use App\Models\Video;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -79,8 +75,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/updateUser/{id}', [AdminPanelController::class, 'GetUpdateUser']);
     Route::post('/updateUser/{id}', [AdminPanelController::class, 'UpdateUser'])->name('update.user');
 
-    Route::get('/video/{id}', [MainController::class, 'coments_check']);
-    Route::post('/video/{id}', [MainController::class, 'coments_check'])->name('coments.check');
+
+    Route::post('/video/{id}', [VideoController::class, 'AddComment'])->name('coments.check');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

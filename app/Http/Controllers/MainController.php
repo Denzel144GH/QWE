@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use App\Models\User;
-use App\Models\coment;
-
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,14 +21,5 @@ class MainController extends Controller
             $videos = $videos->get()->reverse();
 
         return view('home', ['videos' => $videos]);
-    }
-    public function coments_check(Request $request){
-        $valid =$request->validate([
-            'description' => '|string|max:255',
-        ]);
-        $review = new Coment();
-        $review->description = $request->description;
-        $review->user_id = Auth::user()->id;
-        $review->save();
     }
 }
