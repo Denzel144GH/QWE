@@ -91,9 +91,9 @@ class AdminPanelController extends Controller
         if (auth()->user()->role_id < 2)
             return redirect()->route('mainpage')->with('danger', 'Неожиданная ошибка');
         if (auth()->user()->id != $id) {
-            $videos = Video::all();
+            $videos = Video::where('user_id', $id)->get();
 
-            foreach ($videos->where('user_id', $id) as $el) {
+            foreach ($videos as $el) {
                 $el->delete();
             }
 

@@ -25,7 +25,7 @@ class VideoController extends Controller
         $comments = Comment::Where('video_id', $id)->get();
 
         if ($video != null)
-            return view('viewsVideo', ['video' => $video,'comments' =>$comments]);
+            return view('viewsVideo', ['video' => $video, 'comments' => $comments]);
         else
             return abort(404);
     }
@@ -71,12 +71,18 @@ class VideoController extends Controller
 
     public function GetUpdateVideo($id)
     {
-        $video = new Video;
-        return view('updateVideo', ['video' => $video->find($id)]);
+        $video = Video::find($id);
+        if($video == null)
+        abort(404);
+        if ($video->user->id == auth()->user()->id)
+            return view('updateVideo', ['video' => $video]);
+        else
+            abort(403);
     }
 
     public function UpdateVideo(Request $request, $id)
     {
+
         $this->validate($request, [
             'title' => 'required|string|max:70',
             'preview' => 'file|mimes:jpg,jpeg,bmp,png',
@@ -107,8 +113,19 @@ class VideoController extends Controller
 
     public function deleteVideo($id)
     {
-        Video::find($id)->delete();
-        return redirect()->route('user.profile')->with('success', 'Видео было удалено');
+        $video = Video::find($id);
+        if($video->user->id != auth()->user()->id)
+            abort(403);
+        else
+        {
+            $comments = Comment::where('video_id', $id)->get();
+
+            foreach ($comments as $el) {
+                $el->delete();
+            }
+            $video->delete();
+            return redirect()->route('user.profile')->with('success', 'Видео было удалено');
+        }
     }
     public function AddComment(Request $request, $id)
     {

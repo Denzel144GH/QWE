@@ -24,7 +24,7 @@
         </table>
     </div>
     <form class="decor " method="post" action="{{ route('coments.check',$video->id) }}">
-    @csrf
+        @csrf
         <div class="form-inner">
 
             <textarea placeholder="Сообщение..." value="content" name="content" rows="3"></textarea>
