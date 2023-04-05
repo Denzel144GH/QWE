@@ -78,12 +78,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/updateUser/{id}', [AdminPanelController::class, 'GetUpdateUser']);
     Route::post('/updateUser/{id}', [AdminPanelController::class, 'UpdateUser'])->name('update.user');
+
+    Route::get('/video/{id}', [MainController::class, 'coments_check']);
+    Route::post('/video/{id}', [MainController::class, 'coments_check'])->name('coments.check');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/adminPanel', [AdminPanelController::class, 'index', 'searchUser'])->name('adminPanel');
-    
+
     Route::get('/updateUser/{id}', [AdminPanelController::class, 'GetUpdateUser']);
     Route::post('/updateUser/{id}', [AdminPanelController::class, 'UpdateUser'])->name('update.user');
 

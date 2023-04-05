@@ -47,6 +47,7 @@ $video = $video->all()->where('user_id', $user->id);
                                     <div class="PbfbBzFoBaCyzC8lPAjUOg==">
                                         {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->format('d.m.Y')}}
                                     </div>
+                                </div>
                             </li>
                         </ul>
                     </div>
