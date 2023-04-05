@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Comment;
 use App\Models\Video;
-use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -94,6 +94,11 @@ class AdminPanelController extends Controller
             $videos = Video::where('user_id', $id)->get();
 
             foreach ($videos as $el) {
+                $el->delete();
+            }
+
+            $comments = Comment::where('user_id',$id)->get();
+            foreach ($comments as $el) {
                 $el->delete();
             }
 
