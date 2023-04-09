@@ -73,19 +73,21 @@ class AdminPanelController extends Controller
 
     public function RapidUser($id, Request $request)
     {
-        if (auth()->user()->role_id < 2)
+        $user = auth()->user();
+        $role_id = User::find($request->id)->role_id;
+        if ($user->role_id < 2)
             return redirect()->route('mainpage')->with('danger', 'Неожиданная ошибка');
-        if ($request->role_id < auth()->user()->role_id && auth()->user()->id == $id)
+        if ($user->id == $id)
             return redirect()->route('adminPanel')->with('danger', 'Нельзя установить себе роль');
-        if ($request->role_id > auth()->user()->role_id)
+        if ($role_id > $user->role_id)
             return redirect()->route('adminPanel')->with('danger', 'Нельзя установить роль выше своей');
-        $users = new User();
-        $users = $users->find($request->id);
-        $users->role_id = $request->role_id = 1;
+        $users = User::find($request->id);
+        $users->role_id = 1;
         $users->save();
 
         return redirect()->route('adminPanel')->with('success', 'Роль пользователя была изменена');
     }
+
     public function DeleteUser($id)
     {
         if (auth()->user()->role_id < 2)
