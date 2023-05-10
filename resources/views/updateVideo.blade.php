@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="backform mt-5">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h2>Форма для обновление видео</h2>
@@ -62,6 +62,13 @@
 </html>
 @endsection
 <style>
+    .backform{
+        border-radius: 15px;
+        width: 35%;
+        margin-left: 25%;
+        background-color: #fcfafa;
+        padding: 15px;
+    }
     .form-upload__input {
         font-size: 15px;
         font-weight: 300;

@@ -4,7 +4,7 @@
 
 <div class="container">
     <br>
-    <video width="100%" controls>
+    <video class="videow" controls>
         <source src="{{Storage::url($video->path)}}" type="video/mp4">
     </video>
     <div>
@@ -15,7 +15,6 @@
                 <td><strong>{{$video->user->name}}</strong></td>
             </tr>
             <tr>
-
                 <td>{{$video->des}}</td>
             </tr>
             <tr>
@@ -23,21 +22,24 @@
             </tr>
         </table>
     </div>
+    @if(auth()->user()->role_id > 0)
     <form class="decor " method="post" action="{{ route('coments.check',$video->id) }}">
         @csrf
         <div class="form-inner">
-
             <textarea placeholder="Сообщение..." value="content" name="content" rows="3"></textarea>
             <input type="submit" value="Отправить">
         </div>
     </form>
+    @endif
     @foreach($comments as $comment)
     <div class="container xr">
         <img class="image" src="{{ Storage::url($comment->user->avatar) }}" width="40" height="40">
         <strong>{{$comment->user->name}}</strong>
+        <strong>{{$comment->created_at}}</strong>
         <h3 class="txtcomment">{{$comment->content}}</h3>
     </div>
     @endforeach
+
 </div>
 
 <style>
@@ -49,7 +51,13 @@
         box-sizing: border-box;
     }
 
-
+    .videow{
+        background-color: #000000;
+        position: relative;
+        left: 15%;
+        width: 800px;
+        height: 450px;
+    }
 
 
     .form-inner {
@@ -62,16 +70,15 @@
         width: 100%;
         padding: 0 20px;
         margin-bottom: 10px;
-        background: white;
+        background: #dfe0e1;
         line-height: 40px;
         border-width: 0;
         border-radius: 20px;
-
     }
 
     .form-inner input {
         margin-top: 30px;
-        background: white;
+        background: #dddee0;
         font-size: 16px;
 
     }

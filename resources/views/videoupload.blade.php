@@ -6,12 +6,11 @@
 <html>
 
 <head>
-    <title>Laravel Video Upload Form - ScratchCode.io</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="backform mt-5 ">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h2>Форма для загрузки видео</h2>
@@ -80,6 +79,14 @@
 </html>
 @endsection
 <style>
+
+    .backform{
+        border-radius: 15px;
+        width: 35%;
+        margin-left: 25%;
+        background-color: #fcfafa;
+        padding: 15px;
+    }
     .form-upload__input {
         font-size: 15px;
         font-weight: 300;
@@ -95,7 +102,7 @@
         font-family: inherit;
         cursor: pointer;
     }
-</style>
+</style
 
 <script>
 

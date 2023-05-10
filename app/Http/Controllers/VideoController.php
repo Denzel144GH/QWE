@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Playlist;
 use App\Models\Video;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use function GuzzleHttp\Promise\all;
 
 class VideoController extends Controller
 {
@@ -22,7 +24,7 @@ class VideoController extends Controller
         $video->views = $video->views + 1;
         $video->save();
 
-        $comments = Comment::Where('video_id', $id)->get();
+        $comments = Comment::Where('video_id', $id)->get()->reverse();
 
         if ($video != null)
             return view('viewsVideo', ['video' => $video, 'comments' => $comments]);
@@ -47,7 +49,7 @@ class VideoController extends Controller
         $previewPath = 'preview/' . $previewName;
 
         $isFileUploaded = Storage::disk('public')->put($filePath, file_get_contents($request->video));
-        $isPreviewUploaded = Storage::disk('public')->put($previewPath, file_get_contents($request->preview));
+        $isFileUploaded = Storage::disk('public')->put($filePath, file_get_contents($request->video));
 
         //$url = Storage::disk('public')->url($filePath);
 
@@ -139,4 +141,62 @@ class VideoController extends Controller
         $comment->save();
         return back();
     }
+    public function CreatePlaylist(Request $request){
+        $this->validate($request, [
+            'name' => 'required|string|max:90',
+        ]);
+
+        $playlist = Playlist::create([
+
+            'user_id' => Auth::user()->id,
+            'name' => $request->name,
+            'views'=> value(0),
+
+
+        ]);
+        return redirect()->route('view.playlist')->with('success', 'Плейлист был успешно загружен');
+
+    }
+
+
+    public function ViewPlaylist(){
+        return view('playlistCreate');
+    }
+    public function ViewAllPlaylist(){
+        $playlist = Playlist::where('user_id')->get();
+
+        return view('viewAllPlaylist',['playlist' => $el]);
+    }
+    public function ViewMyPlaylist(){
+        $playlist = Playlist::where('user_id',Auth::user()->id)->get();
+
+        return view('viewMyPlaylist',['playlist' => $playlist]);
+    }
+
+    public function SearchPlaylist()
+    {
+        $search = filter_input(INPUT_GET, 'search');
+        $playlist = new Playlist;
+
+        if ($search != null)
+            $playlist = $playlist->where('name', 'like', '%' . $search . '%')->get()->reverse();
+        else
+            $playlist = $playlist->get()->reverse();
+
+        return view('viewMyPlaylist', ['playlist' => $playlist]);
+    }
+
+    public function ShowPlaylist($id)
+    {
+        $playlist = Playlist::find($id);
+        $playlist->views = $playlist->views + 1;
+        $playlist->save();
+
+
+        if ($playlist != null)
+            return view('viewsVideo', ['playlist' => $playlist]);
+        else
+            return abort(404);
+    }
+
 }

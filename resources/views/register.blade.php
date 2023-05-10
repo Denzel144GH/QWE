@@ -26,9 +26,14 @@
     </div>
     <br>
     <div class="form-group">
-      <button type="submit" class="btn btn-secondary">Регистрация</button>
+      <button type="submit" class="btn btn-success">Отправить</button>
     </div>
   </form>
 
 </div>
+    <style>
+        .container{
+            width: 50%;
+        }
+    </style>
 @endsection

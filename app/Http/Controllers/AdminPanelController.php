@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+
 use App\Models\Role;
 use App\Models\Comment;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class AdminPanelController extends Controller
@@ -108,4 +110,5 @@ class AdminPanelController extends Controller
         } else
             return redirect()->route('adminPanel')->with('danger', 'Нельзя удалить себя');
     }
+
 }

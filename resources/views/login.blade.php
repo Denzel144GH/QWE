@@ -21,8 +21,13 @@
     </div>
     <br>
     <div class="form-group">
-      <button type="submit" class="btn btn-secondary">Войти</button>
+      <button type="submit" class="btn btn-success">Войти</button>
     </div>
   </form>
 </div>
+<style>
+    .container{
+        width: 50%;
+    }
+</style>
 @endsection

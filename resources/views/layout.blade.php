@@ -12,18 +12,24 @@
     <title>@yield('title')</title>
 </head>
 
-<body class="bg-dark text-white">
+<body class="">
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow ">
         <a class="my-0 mr-md-auto font-weight-normal h5 text-dark" href="/">Томское управление лесами</a>
         <nav class="my-2 my-md-0 mr-md-3">
             @if(auth()->check())
             <!-- Пример разделенной кнопки опасности-->
             <div class="btn-group">
+                @if(auth()->user()->role_id > 0)
+                    <a class="btn btn-outline-info" href="/CreatePlaylist">Создать плейлист</a>
+                @endif
+                <a class="btn btn-outline-info" href="/ViewAllPlaylist">Плейлисты</a>
                 <a class="btn btn-outline-primary mr-md-3r" href="/login">Профиль</a>
                 <button type="button" class="btn btn-outline-primary mr-md-3r dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false"></button>
                 @if(auth()->user()->role_id > 0)
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/video-upload">Загрузить видео</a>
+                    <a class="dropdown-item" href="/updateUser">Редактировать профиль</a>
+                    <a class="dropdown-item" href="/MyPlaylists">Мои плейлисты</a>
                     @if(auth()->user()->role_id >= 2)
                     <a class="dropdown-item" href="/adminPanel">Админ панель</a>
                     @endif
@@ -35,7 +41,6 @@
             <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">
                 Выход
             </button>
-
             <!-- форма -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">

@@ -4,9 +4,8 @@
 @auth
 <form action="{{route('adminPanel')}}" method="get">
     <input name="search" value="" type="search">
-    <button class="flest" type="submit">🔎</button>
+    <button class="flest btn-outline-success" type="submit">Поиск</button>
 </form>
-
 <br>
 <div class="container">
     @if ($message = Session::get('success'))
@@ -21,7 +20,7 @@
         <strong>{{ $message }}</strong>
     </div>
     @endif
-    <table class="table table-bordered table-dark">
+    <table class="table table-bordered ">
         <thead class="thead-light">
             <tr>
                 <th scope="col">id</th>
@@ -33,18 +32,17 @@
             </tr>
         </thead>
         <tbody>
-
-            @foreach ($users as $user)
+        @foreach ($users as $user)
             <tr>
                 <td>{{$user->id}}</td>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
-                <td><img src="{{ Storage::url($user->avatar) }}" width="45" height="45"></img></td>
+                <td><img class="erqt" src="{{ Storage::url($user->avatar) }}" width="45" height="45"></img></td>
                 <td>{{$user->role_id}}</td>
                 <td>
-                    <a href="{{route('delete.user',$user->id)}}"><button type="button" class="btn btn-outline-danger yd">🗑️</button></a>
-                    <a href="{{route('update.user',$user->id)}}"><button type="button" class="btn btn-outline-warning yd">✏</button></a>
-                    <a href="{{route('rapid.User',$user->id)}}"><button type="button" class="btn btn-outline-success yd">✓</button></a>
+                    <a href="{{route('delete.user',$user->id)}}"><button type="button" class="btn btn-outline-danger yd">Удалить</button></a>
+                    <a href="{{route('update.user',$user->id)}}"><button type="button" class="btn btn-outline-warning yd">Отредактировать</button></a>
+                    <a href="{{route('rapid.User',$user->id)}}"><button type="button" class="btn btn-outline-success yd">Повысить</button></a>
                 </td>
             </tr>
             @endforeach
@@ -66,7 +64,9 @@
         width: 300px;
         margin: 0 auto;
     }
-
+.erqt{
+    border-radius: 50%;
+}
     input {
         width: 100%;
         height: 42px;
@@ -82,12 +82,11 @@
         position: absolute;
         top: 0;
         right: 0px;
-        width: 42px;
+        width: 80px;
         height: 42px;
-        border: none;
-        background: #5e9d75;
         border-radius: 0 5px 5px 0;
         cursor: pointer;
+        padding: 5px;
     }
 </style>
 @endsection

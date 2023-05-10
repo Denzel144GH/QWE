@@ -7,11 +7,11 @@
 <div class="container">
     <form action="{{route('mainpage')}}" method="get">
         <input name="search" value="" type="search">
-        <button class="flest" type="submit">🔎</button>
+        <button class="flest btn-outline-success" type="submit">Поиск</button>
     </form>
     <div class=" row">
         @foreach($videos as $el)
-        <a class="col temp hy text-light" href="{{route('video.show',$el->id)}}">
+        <a class="col temp hy text-dark" href="{{route('video.show',$el->id)}}">
             <table>
                 <tr>
                     <td rowspan="5" class="first"><img src="{{ Storage::url($el->preview) }}" width="256" height="256"></img></td>
@@ -60,13 +60,13 @@
     }
 
     .temp {
-        border: 5px solid white;
+        border: 5px solid #000000;
         margin-top: 20pt;
         margin-left: 20pt;
         margin-right: 20pt;
         margin-bottom: 20pt;
         border-radius: 15px;
-        border-color: #F4F1F8;
+        border-color: #000000;
         width: 450pt;
         word-break: break-word;
 
@@ -101,12 +101,11 @@
         position: absolute;
         top: 0;
         right: 0px;
-        width: 42px;
+        width: 80px;
         height: 42px;
-        border: none;
-        background: #5e9d75;
         border-radius: 0 5px 5px 0;
         cursor: pointer;
+        padding: 5px;
     }
 </style>
 @endsection

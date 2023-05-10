@@ -61,6 +61,10 @@ Route::post('/default',  [DefController::class, 'default']);
 
 Route::get('/video/{id}', [VideoController::class, 'ShowVideo'])->name('video.show');
 
+
+Route::get('/playlist/{id}', [VideoController::class, 'ShowPlaylist'])->name('playlist.show');
+
+
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/video-upload', [VideoController::class, 'GetVideoUploadForm'])->name('get.video.upload'); //
@@ -75,19 +79,34 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/updateUser/{id}', [AdminPanelController::class, 'GetUpdateUser']);
     Route::post('/updateUser/{id}', [AdminPanelController::class, 'UpdateUser'])->name('update.user');
 
+    Route::get('/ViewAllPlaylist', [VideoController::class, 'ViewAllPlaylist']);
+
+    Route::get('/MyPlaylists', [VideoController::class,'SearchPlaylist'])->name('view.playlist');
+
+//    Route::get('/Playlist', function () {
+//        return view('viewPlaylist');
+//    });
+
+
+
+
 
     Route::post('/video/{id}', [VideoController::class, 'AddComment'])->name('coments.check');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
 
-    Route::get('/adminPanel', [AdminPanelController::class, 'index', 'searchUser'])->name('adminPanel');
+    Route::get('/adminPanel', [AdminPanelController::class, 'index'])->name('adminPanel');
 
     Route::get('/updateUser/{id}', [AdminPanelController::class, 'GetUpdateUser']);
     Route::post('/updateUser/{id}', [AdminPanelController::class, 'UpdateUser'])->name('update.user');
 
     Route::get('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser']);
     Route::post('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser'])->name('rapid.User');
+
+    Route::get('/CreatePlaylist', [VideoController::class, 'ViewPlaylist']);
+    Route::post('/CreatePlaylist', [VideoController::class, 'CreatePlaylist'])->name('create.playlist');
+
 
     Route::get('/deleteUser/{id}', [AdminPanelController::class, 'DeleteUser']);
     Route::post('/deleteUser/{id}', [AdminPanelController::class, 'DeleteUser'])->name('delete.user');
