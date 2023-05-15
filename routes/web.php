@@ -64,7 +64,6 @@ Route::get('/video/{id}', [VideoController::class, 'ShowVideo'])->name('video.sh
 
 Route::get('/playlist/{id}', [VideoController::class, 'ShowPlaylist'])->name('playlist.show');
 
-
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/video-upload', [VideoController::class, 'GetVideoUploadForm'])->name('get.video.upload'); //
@@ -79,15 +78,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/updateUser/{id}', [AdminPanelController::class, 'GetUpdateUser']);
     Route::post('/updateUser/{id}', [AdminPanelController::class, 'UpdateUser'])->name('update.user');
 
-    Route::get('/ViewAllPlaylist', [VideoController::class, 'ViewAllPlaylist']);
+    Route::get('/ViewAllPlaylist', [VideoController::class, 'ViewAllPlaylist'])->name('view.all.playlists');
 
     Route::get('/MyPlaylists', [VideoController::class,'SearchPlaylist'])->name('view.playlist');
 
 //    Route::get('/Playlist', function () {
 //        return view('viewPlaylist');
 //    });
-
-
 
 
 

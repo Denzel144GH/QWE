@@ -1,28 +1,42 @@
 @extends('layout')
 @section('title') Главная страница @endsection
 @section('main_content')
-    <?php
-
-    ?>
-    <div class="container">
-        <form action="{{route('mainpage')}}" method="get">
+<div class="container">
+        <form action="{{route('view.all.playlists')}}" method="get">
             <input name="search" value="" type="search">
             <button class="flest btn-outline-success" type="submit">Поиск</button>
         </form>
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-block">
+                <button type="button" onclick="this.parentElement.style.display='none';" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+            </div>
+        @endif
         <div class="row">
-            @foreach($playlist as $el)
+            <table class="table table-bordered mgtop ">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Имя</th>
+                <th scope="col">Содержание</th>
+                <th scope="col">Инструменты</th>
+            </tr>
+            </thead>
+            @foreach($playlists as $el)
+                    <tr>
+                        <td><strong>{{$el->name}}</strong></td>
+                        <td><a class="btn btn-outline-info" href="{{route('playlist.show',$el->id)}}">Посмотреть</a></td>
+                        <td>
+                            <a ><button type="button" class="btn btn-outline-danger yd">Удалить</button></a>
+                            <a ><button type="button" class="btn btn-outline-warning yd">Отредактировать</button></a>
 
-                    <table>
-                        <tr>
-                            <td><strong>{{$el->name}}</strong></td>
-                        </tr>
-                        <tr>
-                            <td>{{$el->user_id}}</td>
-                        </tr>
-                    </table>
+                        </td>
+                    </tr>
+
 
             @endforeach
+            </table>
         </div>
+
     </div>
     <style scoped>
         .hy:hover {

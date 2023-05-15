@@ -1,9 +1,6 @@
 @extends('layout')
 @section('title') Главная страница @endsection
 @section('main_content')
-    <?php
-
-    ?>
     <div class="container">
         <form action="{{route('view.playlist')}}" method="get">
             <input name="search" value="" type="search">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Playlist;
+use App\Models\PlaylistVideo;
 use App\Models\Video;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -49,7 +50,7 @@ class VideoController extends Controller
         $previewPath = 'preview/' . $previewName;
 
         $isFileUploaded = Storage::disk('public')->put($filePath, file_get_contents($request->video));
-        $isFileUploaded = Storage::disk('public')->put($filePath, file_get_contents($request->video));
+        $isPreviewUploaded = Storage::disk('public')->put($previewPath, file_get_contents($request->preview));
 
         //$url = Storage::disk('public')->url($filePath);
 
@@ -163,9 +164,9 @@ class VideoController extends Controller
         return view('playlistCreate');
     }
     public function ViewAllPlaylist(){
-        $playlist = Playlist::where('user_id')->get();
+        $playlists = Playlist::get();
 
-        return view('viewAllPlaylist',['playlist' => $el]);
+        return view('viewAllPlaylist',['playlists' => $playlists]);
     }
     public function ViewMyPlaylist(){
         $playlist = Playlist::where('user_id',Auth::user()->id)->get();
@@ -192,9 +193,10 @@ class VideoController extends Controller
         $playlist->views = $playlist->views + 1;
         $playlist->save();
 
+        $plVideos = PlaylistVideo::where('playlist_id','=',$playlist->id)->get();
 
         if ($playlist != null)
-            return view('viewsVideo', ['playlist' => $playlist]);
+            return view('viewPlaylist', ['plVideos' => $plVideos],['playlist' => $playlist]);
         else
             return abort(404);
     }
