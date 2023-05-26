@@ -41,7 +41,7 @@
                 <p class="col temp hy text-light">
                 <table>
                     <tr>
-                        <td rowspan="5" class="first"><a href="{{route('video.show',$el->id)}}"> <img src="{{ Storage::url($el->preview) }}" ></img></a></td>
+                        <td rowspan="5" class="first"><a href="{{route('video.watch',$el->id)}}"> <img src="{{ Storage::url($el->preview) }}" ></img></a></td>
                         <td><strong>{{$el->title}}</strong></td>
                     </tr>
                     <tr>
@@ -52,8 +52,8 @@
                     </tr>
                     <tr>
                         <td>
-                            <a href="{{route('delete.video',$el->id)}}"><button type="button" class="btn btn-outline-danger">Удалить</button></a>
-                            <a href="{{route('update.video',$el->id)}}"><button type="button" class="btn btn-outline-warning">Отредактировать</button></a>
+                            <a href="{{route('video.delete',$el->id)}}"><button type="button" class="btn btn-outline-danger">Удалить</button></a>
+                            <a href="{{route('video.update.form',$el->id)}}"><button type="button" class="btn btn-outline-warning">Отредактировать</button></a>
                         </td>
                     </tr>
                 </table>

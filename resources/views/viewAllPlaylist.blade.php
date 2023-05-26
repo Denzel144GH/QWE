@@ -25,7 +25,7 @@
             @foreach($playlists as $el)
                     <tr>
                         <td><strong>{{$el->name}}</strong></td>
-                        <td><a class="btn btn-outline-info" href="{{route('playlist.show',$el->id)}}">Посмотреть</a></td>
+                        <td><a class="btn btn-outline-info" href="{{route('playlist.watch',$el->id)}}">Посмотреть</a></td>
                         <td>
                             <a  ><button type="button" class="btn btn-outline-danger yd">Удалить</button></a>
                             <a><button type="button" class="btn btn-outline-warning yd">Отредактировать</button></a>

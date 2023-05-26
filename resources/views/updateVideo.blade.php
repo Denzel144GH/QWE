@@ -22,7 +22,7 @@
                     <strong>{{ $message }}</strong>
                 </div>
                 @endif
-                <form action="{{ route('update.video',$video->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('video.update',$video->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
 

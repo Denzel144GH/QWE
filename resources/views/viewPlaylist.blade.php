@@ -4,7 +4,7 @@
 
 
 <div class="container">
-    <form action="{{route('playlist.show',$playlist->id)}}" method="get">
+    <form action="{{route('playlist.watch',$playlist->id)}}" method="get">
         <input name="search" value="" type="search">
         <button class="flest btn-outline-success" type="submit">Поиск</button>
     </form>
@@ -43,7 +43,7 @@
                     <img src="{{ Storage::url($el->video->preview) }}" width="120" height="120" alt="" class="_9Vd+W3TCjDmuEV7tOCemNA==">
                     @endif
                 </td>
-                <td><a class="btn btn-outline-info" href="{{route('video.show',$el->video->id)}}">Посмотреть</a></td>
+                <td><a class="btn btn-outline-info" href="{{route('video.watch',$el->video->id)}}">Посмотреть</a></td>
                 @if($playlist->user_id == Auth::user()->id)
                 <td>
                     <a><button type="button" class="btn btn-outline-danger yd">Удалить</button></a>

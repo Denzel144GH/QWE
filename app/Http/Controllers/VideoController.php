@@ -43,17 +43,17 @@ class VideoController extends Controller
             'description' => 'required|string|max:255',
         ]);
 
-        $fileName = Str::random(64);
+        $fileName = Str::random(64).'.mp4';
         $filePath = 'videos/' . $fileName;
 
-        $previewName = Str::random(64);
+        $previewName = Str::random(64).'.png';
         $previewPath = 'preview/' . $previewName;
 
         $isFileUploaded = Storage::disk('public')->put($filePath, file_get_contents($request->video));
         $isPreviewUploaded = Storage::disk('public')->put($previewPath, file_get_contents($request->preview));
 
         //$url = Storage::disk('public')->url($filePath);
-
+       
         if ($isFileUploaded && $isPreviewUploaded) {
             $video = new Video();
             $video->title = $request->title;
@@ -92,7 +92,7 @@ class VideoController extends Controller
             'description' => 'string|max:255',
         ]);
         if ($request->preview != null) {
-            $previewName = Str::random(64);
+            $previewName = Str::random(64).'.png';
             $previewPath = 'preview/' . $previewName;
             $isPreviewUploaded = Storage::disk('public')->put($previewPath, file_get_contents($request->preview));
         }
@@ -155,7 +155,7 @@ class VideoController extends Controller
 
 
         ]);
-        return redirect()->route('view.playlist')->with('success', 'Плейлист был успешно загружен');
+        return redirect()->route('playlist.watch.my')->with('success', 'Плейлист был успешно загружен');
 
     }
 

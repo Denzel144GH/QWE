@@ -27,9 +27,9 @@
                 <button type="button" class="btn btn-outline-primary mr-md-3r dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false"></button>
                 @if(auth()->user()->role_id > 0)
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/video-upload">Загрузить видео</a>
+                    <a class="dropdown-item" href="{{route('video.upload.form')}}">Загрузить видео</a>
                     <a class="dropdown-item" href="/updateUser">Редактировать профиль</a>
-                    <a class="dropdown-item" href="/MyPlaylists">Мои плейлисты</a>
+                    <a class="dropdown-item" href="{{route('playlist.watch.my')}}">Мои плейлисты</a>
                     @if(auth()->user()->role_id >= 2)
                     <a class="dropdown-item" href="/adminPanel">Админ панель</a>
                     @endif

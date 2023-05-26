@@ -2,10 +2,11 @@
 @section('title') Главная страница @endsection
 @section('main_content')
     <div class="container">
-        <form action="{{route('view.playlist')}}" method="get">
+        <form action="{{route('playlist.watch.my')}}" method="get">
             <input name="search" value="" type="search">
             <button class="flest btn-outline-success" type="submit">Поиск</button>
         </form>
+        <a class="btn btn-outline-info" href="{{route('playlist.add.video',$el->video->id)}}">Посмотреть</a>
         @if ($message = Session::get('success'))
             <div class="alert alert-success alert-block">
                 <button type="button" onclick="this.parentElement.style.display='none';" class="close" data-dismiss="alert">×</button>
@@ -25,7 +26,7 @@
             @foreach($playlist as $el)
                     <tr>
                         <td><strong>{{$el->name}}</strong></td>
-                        <td><a class="btn btn-outline-info" href="{{route('playlist.show',$el->id)}}">Посмотреть</a></td>
+                        <td><a class="btn btn-outline-info" href="{{route('playlist.watch',$el->id)}}">Посмотреть</a></td>
                         <td>
                             <a ><button type="button"  class="btn btn-outline-danger yd">Удалить</button></a>
                             <a type="button"  class="btn btn-outline-warning yd" href="{{route('update.playlist',$playlist->id)}}">Отредактировать</a>

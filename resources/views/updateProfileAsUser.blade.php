@@ -1,19 +1,14 @@
 @extends('layout')
-@section('title')Загрузка видео@endsection
+@section('title')Редактирование пользователя @endsection
 @section('main_content')
-
 <!DOCTYPE html>
 <html>
 
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-</head>
-
 <body>
-    <div class="backform mt-5 ">
+    <div class="backform mt-5">
         <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h2>Форма для загрузки видео</h2>
+            <div class=" panel-heading">
+                <h2>Изменение профиля</h2>
             </div>
             <div class="panel-body">
                 @if ($message = Session::get('success'))
@@ -22,54 +17,38 @@
                     <strong>{{ $message }}</strong>
                 </div>
                 @endif
-
-
-                <form action="{{ route('video.upload') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('profile.update',$users->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
 
                         <div class="col-md-12">
                             <div class="col-md-6 form-group">
-                                <label>Тема:</label>
-                                <input type="text" name="title" class="form-control" />
-                                @error('title')
+                                <label>Имя пользователя:</label>
+                                <input type="name" name="name" value="{{$users->name}}" class="form-control" />
+                                @error('name')
                                 <div class="alert alert-danger">{{$message}}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6 form-group">
-                                <label>Описание:</label>
-                                <input type="text" name="description" class="form-control" />
-                                @error('description')
+                                <label>Почта пользователя:</label>
+                                <input type="email" name="email" value="{{$users->email}}" class="form-control" />
+                                @error('email')
                                 <div class="alert alert-danger">{{$message}}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6 form-group">
-                                <label>Выберите файл с видео:</label>
-                                {{-- <input type="file" name="video" class="form-control"/>--}}
+                                <label>Выберите файл аватара:</label>
 
-                                <input type="file" name="video" id="file_out" class="form-upload__input">
-
-                                @error('video')
-                                <div class="alert alert-danger">{{$message}}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-6 form-group">
-                                <label>Выберите файл превью вашего видео:</label>
-
-
-                                <input type="file" name="preview" id="preview_out" class="form-upload__input">
-
-                                @error('preview')
+                                <input type="file" name="avatar" id="file_out" class="form-upload__input">
+                                @error('avatar')
                                 <div class="alert alert-danger">{{$message}}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6 form-group">
-                                <button type="submit" class="btn btn-success">Загрузить</button>
+                                <button type="submit" class="btn btn-success">Редактировать</button>
                             </div>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
@@ -79,7 +58,6 @@
 </html>
 @endsection
 <style>
-
     .backform{
         border-radius: 15px;
         width: 35%;
@@ -102,8 +80,4 @@
         font-family: inherit;
         cursor: pointer;
     }
-</style
-
-<script>
-
-</script>
+</style>

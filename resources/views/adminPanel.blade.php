@@ -41,7 +41,7 @@
                 <td>{{$user->role_id}}</td>
                 <td>
                     <a href="{{route('delete.user',$user->id)}}"><button type="button" class="btn btn-outline-danger yd">Удалить</button></a>
-                    <a href="{{route('update.user',$user->id)}}"><button type="button" class="btn btn-outline-warning yd">Отредактировать</button></a>
+                    <a href="{{route('profile.update',$user->id)}}"><button type="button" class="btn btn-outline-warning yd">Отредактировать</button></a>
                     <a href="{{route('rapid.User',$user->id)}}"><button type="button" class="btn btn-outline-success yd">Повысить</button></a>
                 </td>
             </tr>

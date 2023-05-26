@@ -28,9 +28,9 @@ class AdminPanelController extends Controller
     }
     public function GetUpdateUser($id)
     {
-        $users = new User();
+        $user = User::find($id);
         $roles = new Role();
-        return view('updateUser', ['users' => $users->find($id), 'roles' => $roles->get()]);
+        return view('updateUser', ['users' => $user, 'roles' => $roles->get()]);
     }
     public function UpdateUser($id, Request $request)
     {
@@ -39,8 +39,8 @@ class AdminPanelController extends Controller
         if ($request->role_id > auth()->user()->role_id)
             return redirect()->route('adminPanel')->with('danger', 'Нельзя установить роль выше своей');
 
-        $user = new User();
-        $user = $user->find($request->id);
+
+        $user = User::find($request->id);
 
         $this->validate($request, [
             'avatar' => 'file|mimes:jpg,jpeg,bmp,png'
@@ -48,7 +48,7 @@ class AdminPanelController extends Controller
 
 
         if ($request->avatar != null) {
-            $fileName = Str::random(64);
+            $fileName = Str::random(64).'.png';
             $filePath = 'users/' . $fileName;
             $isFileUploaded = Storage::disk('public')->put($filePath, file_get_contents($request->avatar));
 

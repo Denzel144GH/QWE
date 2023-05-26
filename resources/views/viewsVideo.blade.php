@@ -4,10 +4,16 @@
 
 <div class="container">
     <br>
-    <video class="videow" controls>
-        <source src="{{Storage::url($video->path)}}" type="video/mp4">
+    <video class="videow" controls
+        poster="{{Storage::url($video->preview)}}"
+        preload="auto">
+        <source src="{{asset('/storage/'.$video->path)}}" type="video/mp4">
+        <!-- <source src="{{Storage::url($video->path)}}"> -->
+        Your browser does not support the video tag.
     </video>
     <div>
+    <a>{{Storage::url($video->path)}}</a>
+    <a>{{asset($video->path)}}</a>
         <h1>{{$video->title}}</h1>
         <table>
             <tr>
@@ -22,7 +28,7 @@
             </tr>
         </table>
     </div>
-    @if(auth()->user()->role_id > 0)
+    @if(auth()->user() != null && auth()->user()->role_id > 0)
     <form class="decor " method="post" action="{{ route('coments.check',$video->id) }}">
         @csrf
         <div class="form-inner">

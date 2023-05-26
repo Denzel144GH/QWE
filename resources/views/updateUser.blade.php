@@ -22,7 +22,7 @@
                     <strong>{{ $message }}</strong>
                 </div>
                 @endif
-                <form action="{{ route('update.user',$users->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('profile.update',$users->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
 

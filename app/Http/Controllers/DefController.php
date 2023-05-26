@@ -8,7 +8,7 @@ class DefController extends Controller
 {
     public function upload(Request $request)
     {
-        $path = $request->file('image')->store('uploads', 'publick');
+        $path = $request->file('image')->store('uploads', 'public');
 
         return view('default', [$path => $path]);
     }

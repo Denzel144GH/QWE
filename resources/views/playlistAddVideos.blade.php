@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title') Главная страница @endsection
+@section('title') Добавление видео @endsection
 @section('main_content')
 <div class="container">
     <form action="{{route('mainpage')}}" method="get">
@@ -15,13 +15,10 @@
                     <td><strong>{{$el->title}}</strong></td>
                 </tr>
                 <tr>
-                    <td><p>Автор: {{$el->user->name}}</p></td>
+                    <td>{{$el->user_id}}</td>
                 </tr>
                 <tr>
-                    <td><p>Просмотры: {{$el->views}}</p></td>
-                </tr>
-                <tr>
-                    <td></td>
+                    <td>{{$el->views}}</td>
                 </tr>
             </table>
         </a>

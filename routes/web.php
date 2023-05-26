@@ -25,9 +25,8 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/',  [MainController::class, 'home'])->name('mainpage');
-Route::name('user.')->group(function () {
 
-    Route::get('/profile', [AuthController::class, 'profile'])->middleware('auth')->name('profile');
+Route::name('user.')->group(function () {
 
     Route::get('/login', function () {
         if (Auth::check()) {
@@ -51,21 +50,55 @@ Route::name('user.')->group(function () {
         return view('register');
     })->name('registration');
     Route::post('/registration', [AuthController::class, 'register']);
+
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+
+        #user update profile
+        Route::get('/profile/update/{id}', [AdminPanelController::class, 'GetUpdateUser'])->name('profile.update.form');
+        Route::post('/profile/update/{id}', [AdminPanelController::class, 'UpdateUser'])->name('profile.update');
+    });
 });
 
-//Route::resource('/download', 'DownloadController')->only(['store', 'update', 'destroy']);
-//Route::get('/download/{download?}', ['DownloadController'])->name('download');
+Route::name('video.')->group(function () {
 
-Route::post('/default',  [DefController::class, 'default']);
-
-
-Route::get('/video/{id}', [VideoController::class, 'ShowVideo'])->name('video.show');
+    Route::get('/video/watch/{id}', [VideoController::class, 'ShowVideo'])->name('watch');
 
 
-Route::get('/playlist/{id}', [VideoController::class, 'ShowPlaylist'])->name('playlist.show');
+    #video only if auth
+    Route::middleware(['auth'])->group(function () {
+
+        #video upload
+        Route::get('/video/upload', [VideoController::class, 'GetVideoUploadForm'])->name('upload.form'); 
+        Route::post('/video/upload', [VideoController::class, 'UploadVideo'])->name('upload');            
+
+        #video update
+        Route::get('/video/update/{id}', [VideoController::class, 'GetUpdateVideo'])->name('update.form');
+        Route::post('/video/update/{id}', [VideoController::class, 'UpdateVideo'])->name('update');
+
+        #video delete
+        Route::get('/video/delete/{id}', [VideoController::class, 'DeleteVideo'])->name('delete.form');
+        Route::post('/video/delete/{id}', [VideoController::class, 'DeleteVideo'])->name('delete');
+    });
+});
+
+
+Route::name('playlist.')->group(function () {
+
+    Route::get('/playlist/{id}', [VideoController::class, 'ShowPlaylist'])->name('watch');
+
+    #playlist only if auth
+    Route::middleware(['auth'])->group(function () {
+
+        Route::get('/playlist/my', [VideoController::class, 'SearchPlaylist'])->name('watch.my');
+        //Route::get('/playlist/add/video', [VideoController::class, ''])->name('playlist.add.video'); 
+    });
+});
 
 Route::middleware(['auth'])->group(function () {
 
+<<<<<<< Updated upstream
     Route::get('/updatePlaylist/{id}', [VideoController::class, 'GetUpdatePlaylist']);
     Route::post('/updatePlaylist/{id}', [VideoController::class, 'UpdatePlaylist'])->name('update.playlist');
 
@@ -80,15 +113,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/updateUser/{id}', [AdminPanelController::class, 'GetUpdateUser']);
     Route::post('/updateUser/{id}', [AdminPanelController::class, 'UpdateUser'])->name('update.user');
+=======
+>>>>>>> Stashed changes
 
     Route::get('/ViewAllPlaylist', [VideoController::class, 'ViewAllPlaylist'])->name('view.all.playlists');
-
-    Route::get('/MyPlaylists', [VideoController::class,'SearchPlaylist'])->name('view.playlist');
-
-//    Route::get('/Playlist', function () {
-//        return view('viewPlaylist');
-//    });
-
 
 
     Route::post('/video/{id}', [VideoController::class, 'AddComment'])->name('coments.check');
@@ -99,7 +127,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/adminPanel', [AdminPanelController::class, 'index'])->name('adminPanel');
 
     Route::get('/updateUser/{id}', [AdminPanelController::class, 'GetUpdateUser']);
-    Route::post('/updateUser/{id}', [AdminPanelController::class, 'UpdateUser'])->name('update.user');
+    Route::post('/updateUser/{id}', [AdminPanelController::class, 'UpdateUser'])->name('profile.update');
 
     Route::get('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser']);
     Route::post('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser'])->name('rapid.User');
