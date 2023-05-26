@@ -15,6 +15,7 @@
         <div class="row">
             <table class="table table-bordered mgtop ">
             <thead class="thead-light">
+
             <tr>
                 <th scope="col">Имя</th>
                 <th scope="col">Содержание</th>
@@ -26,9 +27,9 @@
                         <td><strong>{{$el->name}}</strong></td>
                         <td><a class="btn btn-outline-info" href="{{route('playlist.show',$el->id)}}">Посмотреть</a></td>
                         <td>
-                            <a ><button type="button" class="btn btn-outline-danger yd">Удалить</button></a>
-                            <a ><button type="button" class="btn btn-outline-warning yd">Отредактировать</button></a>
-
+                            <a ><button type="button"  class="btn btn-outline-danger yd">Удалить</button></a>
+                            <a type="button"  class="btn btn-outline-warning yd" href="{{route('update.playlist',$playlist->id)}}">Отредактировать</a>
+                            <a><button type="button" class="btn btn-outline-success yd">Добавить видео</button></a>
                         </td>
                     </tr>
 

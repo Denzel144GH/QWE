@@ -8,6 +8,7 @@
         <input name="search" value="" type="search">
         <button class="flest btn-outline-success" type="submit">Поиск</button>
     </form>
+    <br>
     @if ($message = Session::get('success'))
     <div class="alert alert-success alert-block">
         <button type="button" onclick="this.parentElement.style.display='none';" class="close" data-dismiss="alert">×</button>
@@ -15,8 +16,14 @@
     </div>
     @endif
     <div class="row">
+{{--        <div class="sidenav">--}}
+{{--            <td><strong>{{$playlist->name}}</strong></td>--}}
+{{--        </div>--}}
+        <h4 class="center">{{$playlist->name}}</h4>
+
         <table class="table table-bordered mgtop ">
             <thead class="thead-light">
+
                 <tr>
                     <th scope="col">Имя</th>
                     <th scope="col">Превью</th>
@@ -41,6 +48,7 @@
                 <td>
                     <a><button type="button" class="btn btn-outline-danger yd">Удалить</button></a>
                     <a><button type="button" class="btn btn-outline-warning yd">Отредактировать</button></a>
+
                 </td>
                 @endif
             </tr>
@@ -130,6 +138,11 @@
         border-radius: 0 5px 5px 0;
         cursor: pointer;
         padding: 5px;
+    }
+    .center{
+        display: block;
+        margin-left: auto;
+        margin-right: auto
     }
 </style>
 @endsection

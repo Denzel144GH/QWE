@@ -66,6 +66,9 @@ Route::get('/playlist/{id}', [VideoController::class, 'ShowPlaylist'])->name('pl
 
 Route::middleware(['auth'])->group(function () {
 
+    Route::get('/updatePlaylist/{id}', [VideoController::class, 'GetUpdatePlaylist']);
+    Route::post('/updatePlaylist/{id}', [VideoController::class, 'UpdatePlaylist'])->name('update.playlist');
+
     Route::get('/video-upload', [VideoController::class, 'GetVideoUploadForm'])->name('get.video.upload'); //
     Route::post('/video-upload', [VideoController::class, 'UploadVideo'])->name('store.video');            //
 

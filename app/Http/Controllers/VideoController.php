@@ -144,7 +144,7 @@ class VideoController extends Controller
     }
     public function CreatePlaylist(Request $request){
         $this->validate($request, [
-            'name' => 'required|string|max:90',
+            'name' => 'required|string|max:70',
         ]);
 
         $playlist = Playlist::create([
@@ -200,5 +200,41 @@ class VideoController extends Controller
         else
             return abort(404);
     }
+//    public function DeletePlaylist($id){
+//        $playlist = Playlist::find($id);
+//        if($playlist->user->id != auth()->user()->id)
+//            abort(403);
+//        else
+//        {
+//            $comments = Comment::where('video_id', $id)->get();
+//
+//            foreach ($comments as $el) {
+//                $el->delete();
+//            }
+//            $video->delete();
+//            return redirect()->route('user.profile')->with('success', 'Видео было удалено');
+//        }
+//    }
 
+    public function UpdatePlaylist(Request $request, $id)
+    {
+
+        $this->validate($request, [
+            'name' => 'required|string|max:70',
+        ]);
+
+            $playlist = new Playlist();
+            $playlist = $playlist->find($request->id);
+            $playlist->name = $request->name;
+            $playlist->save();
+
+           return view('update.playlist', ['playlist' => $playlist]);
+
+
+    }
+    public function GetUpdatePlaylist($id)
+    {
+        $playlist = Playlist::find($id);
+            return view('updatePlaylist', ['playlist' => $playlist]);
+    }
 }

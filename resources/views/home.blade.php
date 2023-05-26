@@ -18,10 +18,13 @@
                     <td><strong>{{$el->title}}</strong></td>
                 </tr>
                 <tr>
-                    <td>{{$el->user_id}}</td>
+                    <td><p>Автор: {{$el->user->name}}</p></td>
                 </tr>
                 <tr>
-                    <td>{{$el->views}}</td>
+                    <td><p>Просмотры: {{$el->views}}</p></td>
+                </tr>
+                <tr>
+                    <td></td>
                 </tr>
             </table>
         </a>

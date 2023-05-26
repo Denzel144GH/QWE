@@ -6,6 +6,7 @@
             <input name="search" value="" type="search">
             <button class="flest btn-outline-success" type="submit">Поиск</button>
         </form>
+    <br>
         @if ($message = Session::get('success'))
             <div class="alert alert-success alert-block">
                 <button type="button" onclick="this.parentElement.style.display='none';" class="close" data-dismiss="alert">×</button>
@@ -26,8 +27,9 @@
                         <td><strong>{{$el->name}}</strong></td>
                         <td><a class="btn btn-outline-info" href="{{route('playlist.show',$el->id)}}">Посмотреть</a></td>
                         <td>
-                            <a ><button type="button" class="btn btn-outline-danger yd">Удалить</button></a>
-                            <a ><button type="button" class="btn btn-outline-warning yd">Отредактировать</button></a>
+                            <a  ><button type="button" class="btn btn-outline-danger yd">Удалить</button></a>
+                            <a><button type="button" class="btn btn-outline-warning yd">Отредактировать</button></a>
+                            <a><button type="button" class="btn btn-outline-success yd">Добавить видео</button></a>
 
                         </td>
                     </tr>
