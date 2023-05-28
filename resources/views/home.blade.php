@@ -21,7 +21,7 @@
                     <td><p>Просмотры: {{$el->views}}</p></td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td> </td>
                 </tr>
             </table>
         </a>

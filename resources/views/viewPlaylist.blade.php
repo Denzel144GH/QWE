@@ -16,10 +16,8 @@
     </div>
     @endif
     <div class="row">
-{{--        <div class="sidenav">--}}
-{{--            <td><strong>{{$playlist->name}}</strong></td>--}}
-{{--        </div>--}}
         <h4 class="center">{{$playlist->name}}</h4>
+        <a class="btn btn-outline-info" href="{{route('playlist.add.video.form',$playlist->id)}}">Добавить видео</a>
 
         <table class="table table-bordered mgtop ">
             <thead class="thead-light">
@@ -35,7 +33,9 @@
             </thead>
             @foreach($plVideos as $el)
             <tr>
-                <td><p>{{$el->video->title}}</p></td>
+                <td>
+                    <p>{{$el->video->title}}</p>
+                </td>
                 <td>
                     @if($el->video->preview == null)
                     <img src="{{ Storage::url('default.png') }}" alt="" class="_9Vd+W3TCjDmuEV7tOCemNA==">
@@ -48,7 +48,6 @@
                 <td>
                     <a><button type="button" class="btn btn-outline-danger yd">Удалить</button></a>
                     <a><button type="button" class="btn btn-outline-warning yd">Отредактировать</button></a>
-
                 </td>
                 @endif
             </tr>
@@ -139,7 +138,8 @@
         cursor: pointer;
         padding: 5px;
     }
-    .center{
+
+    .center {
         display: block;
         margin-left: auto;
         margin-right: auto

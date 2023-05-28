@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\DefController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\DownloadController;
 
 //use App\Http\Controllers\PostController;
@@ -56,8 +57,8 @@ Route::name('user.')->group(function () {
         Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
 
         #user update profile
-        Route::get('/profile/update/{id}', [AdminPanelController::class, 'GetUpdateUser'])->name('profile.update.form');
-        Route::post('/profile/update/{id}', [AdminPanelController::class, 'UpdateUser'])->name('profile.update');
+        Route::get('/profile/update/{id}', [UserController::class, 'GetUpdateUser'])->name('profile.update.form');
+        Route::post('/profile/update/{id}', [UserController::class, 'UpdateUser'])->name('profile.update');
     });
 });
 
@@ -86,19 +87,20 @@ Route::name('video.')->group(function () {
 
 Route::name('playlist.')->group(function () {
 
-    Route::get('/playlist/{id}', [VideoController::class, 'ShowPlaylist'])->name('watch');
+    Route::get('/playlist/watch/{id}', [VideoController::class, 'ShowPlaylist'])->name('watch');
 
     #playlist only if auth
     Route::middleware(['auth'])->group(function () {
 
-        Route::get('/playlist/my', [VideoController::class, 'SearchPlaylist'])->name('watch.my');
-        //Route::get('/playlist/add/video', [VideoController::class, ''])->name('playlist.add.video'); 
+        Route::get('/playlist/my', [VideoController::class, 'ViewMyPlaylist'])->name('watch.my');
+
+        Route::get('/playlist/{id}/add/video', [VideoController::class, 'AddVideoToPlaylistView'])->name('add.video.form'); 
+        Route::post('/playlist/{id}/add/video', [VideoController::class, 'AddVideoToPlaylist'])->name('add.video'); 
     });
 });
 
 Route::middleware(['auth'])->group(function () {
 
-<<<<<<< Updated upstream
     Route::get('/updatePlaylist/{id}', [VideoController::class, 'GetUpdatePlaylist']);
     Route::post('/updatePlaylist/{id}', [VideoController::class, 'UpdatePlaylist'])->name('update.playlist');
 
@@ -113,8 +115,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/updateUser/{id}', [AdminPanelController::class, 'GetUpdateUser']);
     Route::post('/updateUser/{id}', [AdminPanelController::class, 'UpdateUser'])->name('update.user');
-=======
->>>>>>> Stashed changes
 
     Route::get('/ViewAllPlaylist', [VideoController::class, 'ViewAllPlaylist'])->name('view.all.playlists');
 

@@ -14,4 +14,7 @@ class PlaylistVideo extends Model
     public function video() {
         return $this->hasOne(Video::class, 'id', 'video_id');
     }
+    public function playlist() {
+        return $this->hasOne(Playlist::class, 'id', 'playlist_id');
+    }
 }

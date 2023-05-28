@@ -28,6 +28,9 @@
         <div class="">
             Дата регистрации:
         </div>
+        <div>
+            <a href=""> </a>
+        </div>
         <div class="">
             {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->format('d.m.Y')}}
         </div>

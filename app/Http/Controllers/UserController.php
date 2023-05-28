@@ -3,21 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-
-use App\Models\Role;
-use App\Models\Comment;
-use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class AdminPanelController extends Controller
+class UserController extends Controller
 {
     public function UpdateUser($id, Request $request)
     {
-
         $user = User::find($request->id);
+
+        if($user == null)
+            return abort(405);
+
 
         $this->validate($request, [
             'avatar' => 'file|mimes:jpg,jpeg,bmp,png'
@@ -39,17 +37,17 @@ class AdminPanelController extends Controller
                 'email' => 'required|email|unique:users'
             ]);
         }
-
+        $user->role_id = 2;
         $user->name = $request->name;
         if ($user->email != $request->email)
             $user->email = $request->email;
         $user->save();
 
-        return redirect()->route('adminPanel')->with('success', 'Пользователь был отредактирован');
+        return redirect()->route('user.profile')->with('success', 'Обновлено');
     }
     public function GetUpdateUser($id)
     {
         $user = User::find($id);
-        return view('updateUser', ['users' => $user]);
+        return view('updateProfileAsUser', ['users' => $user]);
     }
 }

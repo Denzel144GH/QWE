@@ -2,32 +2,32 @@
 @section('title') Добавление видео @endsection
 @section('main_content')
 <div class="container">
-    <form action="{{route('mainpage')}}" method="get">
-        <input name="search" value="" type="search">
-        <button class="flest btn-outline-success" type="submit">Поиск</button>
-    </form>
-    <div class=" row">
-        @foreach($videos as $el)
-        <a class="col temp hy text-dark" href="{{route('video.watch',$el->id)}}">
-            <table>
-                <tr>
-                    <td rowspan="5" class="first"><img src="{{ Storage::url($el->preview) }}" width="256" height="256"></img></td>
-                    <td><strong>{{$el->title}}</strong></td>
-                </tr>
-                <tr>
-                    <td>{{$el->user_id}}</td>
-                </tr>
-                <tr>
-                    <td>{{$el->views}}</td>
-                </tr>
-            </table>
-        </a>
-        @endforeach
-    </div>
+        <form action="{{ route('playlist.add.video',$playlist->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6 form-group">
+                                <label>Выбор видео:</label>
+
+                                <select type="text" name="video_id" required="required">
+                                    @foreach($videos as $vid)
+                                    <option value="{{$vid->id}}">{{$vid->title}}</option>
+                                    @endforeach
+
+                                </select>
+                                @error('role_id')
+                                <div class="alert alert-danger">{{$message}}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <button type="submit" class="btn btn-success">Редактировать</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
 </div>
 <style scoped>
     .hy:hover {
-        transform: scale(1.05);
         cursor: pointer;
         text-decoration: none;
     }

@@ -7,13 +7,9 @@
     <video class="videow" controls
         poster="{{Storage::url($video->preview)}}"
         preload="auto">
-        <source src="{{asset('/storage/'.$video->path)}}" type="video/mp4">
-        <!-- <source src="{{Storage::url($video->path)}}"> -->
-        Your browser does not support the video tag.
+        <source src="{{Storage::url($video->path)}}">
     </video>
     <div>
-    <a>{{Storage::url($video->path)}}</a>
-    <a>{{asset($video->path)}}</a>
         <h1>{{$video->title}}</h1>
         <table>
             <tr>

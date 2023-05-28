@@ -43,17 +43,17 @@ class VideoController extends Controller
             'description' => 'required|string|max:255',
         ]);
 
-        $fileName = Str::random(64).'.mp4';
+        $fileName = Str::random(64) . '.mp4';
         $filePath = 'videos/' . $fileName;
 
-        $previewName = Str::random(64).'.png';
+        $previewName = Str::random(64) . '.png';
         $previewPath = 'preview/' . $previewName;
 
         $isFileUploaded = Storage::disk('public')->put($filePath, file_get_contents($request->video));
         $isPreviewUploaded = Storage::disk('public')->put($previewPath, file_get_contents($request->preview));
 
         //$url = Storage::disk('public')->url($filePath);
-       
+
         if ($isFileUploaded && $isPreviewUploaded) {
             $video = new Video();
             $video->title = $request->title;
@@ -75,8 +75,8 @@ class VideoController extends Controller
     public function GetUpdateVideo($id)
     {
         $video = Video::find($id);
-        if($video == null)
-        abort(404);
+        if ($video == null)
+            abort(404);
         if ($video->user->id == auth()->user()->id)
             return view('updateVideo', ['video' => $video]);
         else
@@ -92,7 +92,7 @@ class VideoController extends Controller
             'description' => 'string|max:255',
         ]);
         if ($request->preview != null) {
-            $previewName = Str::random(64).'.png';
+            $previewName = Str::random(64) . '.png';
             $previewPath = 'preview/' . $previewName;
             $isPreviewUploaded = Storage::disk('public')->put($previewPath, file_get_contents($request->preview));
         }
@@ -117,10 +117,9 @@ class VideoController extends Controller
     public function deleteVideo($id)
     {
         $video = Video::find($id);
-        if($video->user->id != auth()->user()->id)
+        if ($video->user->id != auth()->user()->id)
             abort(403);
-        else
-        {
+        else {
             $comments = Comment::where('video_id', $id)->get();
 
             foreach ($comments as $el) {
@@ -142,7 +141,8 @@ class VideoController extends Controller
         $comment->save();
         return back();
     }
-    public function CreatePlaylist(Request $request){
+    public function CreatePlaylist(Request $request)
+    {
         $this->validate($request, [
             'name' => 'required|string|max:70',
         ]);
@@ -151,27 +151,53 @@ class VideoController extends Controller
 
             'user_id' => Auth::user()->id,
             'name' => $request->name,
-            'views'=> value(0),
+            'views' => value(0),
 
 
         ]);
         return redirect()->route('playlist.watch.my')->with('success', 'Плейлист был успешно загружен');
+    }
 
+    public function AddVideoToPlaylistView($id)
+    {
+
+        $playlist = Playlist::find($id);
+
+        $videos = Video::where('user_id', auth()->user()->id)->get();
+
+        return view('playlistAddVideos', ['playlist' => $playlist, 'videos' => $videos]);
+    }
+    public function AddVideoToPlaylist($id, Request $request)
+    {
+        $this->validate($request, [
+            'video_id' => 'required',
+        ]);
+
+        PlaylistVideo::create([
+
+            'playlist_id' => $id,
+            'video_id' => $request->video_id,
+        ]);
+
+        return redirect()->route('playlist.watch', $id)->with('success', 'Успешно');
     }
 
 
-    public function ViewPlaylist(){
+    public function ViewPlaylist()
+    {
         return view('playlistCreate');
     }
-    public function ViewAllPlaylist(){
+    public function ViewAllPlaylist()
+    {
         $playlists = Playlist::get();
 
-        return view('viewAllPlaylist',['playlists' => $playlists]);
+        return view('viewAllPlaylist', ['playlists' => $playlists]);
     }
-    public function ViewMyPlaylist(){
-        $playlist = Playlist::where('user_id',Auth::user()->id)->get();
+    public function ViewMyPlaylist()
+    {
+        $playlist = Playlist::where('user_id', Auth::user()->id)->get();
 
-        return view('viewMyPlaylist',['playlist' => $playlist]);
+        return view('viewMyPlaylist', ['playlist' => $playlist]);
     }
 
     public function SearchPlaylist()
@@ -193,28 +219,28 @@ class VideoController extends Controller
         $playlist->views = $playlist->views + 1;
         $playlist->save();
 
-        $plVideos = PlaylistVideo::where('playlist_id','=',$playlist->id)->get();
+        $plVideos = PlaylistVideo::where('playlist_id', '=', $playlist->id)->get();
 
         if ($playlist != null)
-            return view('viewPlaylist', ['plVideos' => $plVideos],['playlist' => $playlist]);
+            return view('viewPlaylist', ['plVideos' => $plVideos], ['playlist' => $playlist]);
         else
             return abort(404);
     }
-//    public function DeletePlaylist($id){
-//        $playlist = Playlist::find($id);
-//        if($playlist->user->id != auth()->user()->id)
-//            abort(403);
-//        else
-//        {
-//            $comments = Comment::where('video_id', $id)->get();
-//
-//            foreach ($comments as $el) {
-//                $el->delete();
-//            }
-//            $video->delete();
-//            return redirect()->route('user.profile')->with('success', 'Видео было удалено');
-//        }
-//    }
+    //    public function DeletePlaylist($id){
+    //        $playlist = Playlist::find($id);
+    //        if($playlist->user->id != auth()->user()->id)
+    //            abort(403);
+    //        else
+    //        {
+    //            $comments = Comment::where('video_id', $id)->get();
+    //
+    //            foreach ($comments as $el) {
+    //                $el->delete();
+    //            }
+    //            $video->delete();
+    //            return redirect()->route('user.profile')->with('success', 'Видео было удалено');
+    //        }
+    //    }
 
     public function UpdatePlaylist(Request $request, $id)
     {
@@ -223,18 +249,16 @@ class VideoController extends Controller
             'name' => 'required|string|max:70',
         ]);
 
-            $playlist = new Playlist();
-            $playlist = $playlist->find($request->id);
-            $playlist->name = $request->name;
-            $playlist->save();
+        $playlist = new Playlist();
+        $playlist = $playlist->find($request->id);
+        $playlist->name = $request->name;
+        $playlist->save();
 
-           return view('update.playlist', ['playlist' => $playlist]);
-
-
+        return view('update.playlist', ['playlist' => $playlist]);
     }
     public function GetUpdatePlaylist($id)
     {
         $playlist = Playlist::find($id);
-            return view('updatePlaylist', ['playlist' => $playlist]);
+        return view('updatePlaylist', ['playlist' => $playlist]);
     }
 }
