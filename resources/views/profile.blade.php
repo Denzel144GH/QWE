@@ -3,7 +3,6 @@
 @section('main_content')
     <?php
     use App\Models\Video;
-
     $user = auth()->user();
     $video = new Video();
     $video = $video->all()->where('user_id', $user->id);
@@ -15,13 +14,11 @@
                 <strong>{{ $message }}</strong>
             </div>
         @endif
-
         @if($user->avatar == null)
             <img src="{{ Storage::url('default.png') }}" alt="" class="_9Vd+W3TCjDmuEV7tOCemNA==">
         @else
             <img src="{{ Storage::url($user->avatar) }}" alt="" class="_9Vd+W3TCjDmuEV7tOCemNA==">
         @endif
-
         <h1 class="formdatacreate">
             {{$user->name}}
         </h1>
@@ -34,13 +31,11 @@
         <div class="">
             {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->format('d.m.Y')}}
         </div>
-
         <h3 class="center">
             Мои видео
         </h3>
         <div class=" row">
             @foreach($video as $el)
-
                 <p class="col temp hy text-light">
                 <table>
                     <tr>
@@ -65,42 +60,32 @@
             @endforeach
         </div>
     </div>
-
-
 @endsection
-
 <style scoped>
     .hy:hover {
         transform: scale(1.05);
         cursor: pointer;
         text-decoration: none;
     }
-
     .hy {
         transition: .5s ease;
         box-sizing: border-box;
         text-decoration: none;
         border-radius: 30px;
     }
-
     a {
         text-decoration: none;
-
     }
-
-
     td {
         font-size: 1.5em;
         padding: 5px;
         text-align: left;
     }
-
     .first {
         font-size: 1em;
         font-weight: bold;
         text-align: center;
     }
-
     .temp {
         border: 5px solid #000000;
         margin-top: 20pt;
@@ -111,16 +96,13 @@
         border-color: #000000;
         width: 450pt;
         word-break: break-word;
-
     }
-
     img {
         padding: 15px;
         width: 144px;
         height: 144px;
         border-radius: 50%;
     }
-
     body {
         background-image: initial;
         background-color: rgb(32, 34, 36);

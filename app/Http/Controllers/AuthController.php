@@ -8,7 +8,6 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -16,28 +15,23 @@ class AuthController extends Controller
         if (Auth::check()) {
             return redirect(route('user.profile'));
         }
-
         $validate = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|string'
         ]);
-
         if ($validate->fails())
             return redirect(route('user.registration'))->withErrors($validate->errors());
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'role_id' => 0,
             'password' => Hash::make($request->password)
         ]);
-
         if ($user) {
             Auth::login($user);
             return redirect()->to(route('user.profile'));
         }
-
         return redirect()->to(route('user.profile'))->withErrors([
             'formError' => 'Произошла ошибка при сохранении пользователя'
         ]);

@@ -1,17 +1,13 @@
 @extends('layout')
 @section('title')Создание плейлиста@endsection
 @section('main_content')
-
     <!DOCTYPE html>
 <html>
-
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
-
 <body>
 <div class="backform mt-5 ">
-
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h2>Форма для создания плейлиста</h2>
@@ -27,10 +23,8 @@
                 @csrf
                 <div class="row">
                     <div class="col-md-12">
-
                         <div class="col-md-6 form-group">
                             <label>Напишите название плейлиста:</label>
-
                             <input type="text"  name="name" class="form-control"/>
                             @error('name')
                             <div class="alert alert-danger">{{$message}}</div>
@@ -46,11 +40,9 @@
     </div>
 </div>
 </body>
-
 </html>
 @endsection
 <style>
-
     .backform{
         border-radius: 15px;
         width: 35%;
@@ -63,7 +55,6 @@
         font-weight: 300;
         font-family: inherit;
     }
-
     .form-upload__input::file-selector-button {
         margin-right: 20px;
         padding: 9px 15px;
@@ -74,7 +65,5 @@
         cursor: pointer;
     }
 </style
-
 <script>
-
 </script>

@@ -3,12 +3,9 @@
 @section('main_content')
 <!DOCTYPE html>
 <html>
-
 <head>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
-
 <body>
     <div class="backform mt-5">
         <div class="panel panel-primary">
@@ -25,7 +22,6 @@
                 <form action="{{ route('profile.update',$users->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-
                         <div class="col-md-12">
                             <div class="col-md-6 form-group">
                                 <label>Имя пользователя:</label>
@@ -43,13 +39,11 @@
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Role_id пользователя:</label>
-
                                 <select type="text" name="role_id" required="required">
                                     <option value="{{$users->role_id}}">{{$users->role_id}}:{{$users->role->display_name}}</option>
                                     @foreach($roles as $role)
                                     <option value="{{$role->id}}">{{$role->id}}: {{$role->display_name}}</option>
                                     @endforeach
-
                                 </select>
                                 @error('role_id')
                                 <div class="alert alert-danger">{{$message}}</div>
@@ -57,7 +51,6 @@
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Выберите файл аватара:</label>
-
                                 <input type="file" name="avatar" id="file_out" class="form-upload__input">
                                 @error('avatar')
                                 <div class="alert alert-danger">{{$message}}</div>
@@ -73,7 +66,6 @@
         </div>
     </div>
 </body>
-
 </html>
 @endsection
 <style>
@@ -89,7 +81,6 @@
         font-weight: 300;
         font-family: inherit;
     }
-
     .form-upload__input::file-selector-button {
         margin-right: 20px;
         padding: 9px 15px;

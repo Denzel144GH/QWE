@@ -1,14 +1,11 @@
 @extends('layout')
 @section('title')Обновление записи @endsection
 @section('main_content')
-
 <!DOCTYPE html>
 <html>
-
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
-
 <body>
     <div class="backform mt-5">
         <div class="panel panel-primary">
@@ -25,7 +22,6 @@
                 <form action="{{ route('video.update',$video->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-
                         <div class="col-md-12">
                             <div class="col-md-6 form-group">
                                 <label>Тема:</label>
@@ -58,7 +54,6 @@
         </div>
     </div>
 </body>
-
 </html>
 @endsection
 <style>
@@ -74,7 +69,6 @@
         font-weight: 300;
         font-family: inherit;
     }
-
     .form-upload__input::file-selector-button {
         margin-right: 20px;
         padding: 9px 15px;

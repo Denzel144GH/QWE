@@ -3,7 +3,6 @@
 @section('main_content')
 <!DOCTYPE html>
 <html>
-
 <body>
     <div class="backform mt-5">
         <div class="panel panel-primary">
@@ -20,7 +19,6 @@
                 <form action="{{ route('user.profile.update',$users->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-
                         <div class="col-md-12">
                             <div class="col-md-6 form-group">
                                 <label>Имя пользователя:</label>
@@ -54,7 +52,6 @@
         </div>
     </div>
 </body>
-
 </html>
 @endsection
 <style>
@@ -70,7 +67,6 @@
         font-weight: 300;
         font-family: inherit;
     }
-
     .form-upload__input::file-selector-button {
         margin-right: 20px;
         padding: 9px 15px;

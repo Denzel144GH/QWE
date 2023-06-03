@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title') Главная страница @endsection
+@section('title') Мои плейлисты@endsection
 @section('main_content')
     <div class="container">
         <form action="{{route('playlist.watch.my')}}" method="get">
@@ -15,7 +15,6 @@
         <div class="row">
             <table class="table table-bordered mgtop ">
             <thead class="thead-light">
-
             <tr>
                 <th scope="col">Имя</th>
                 <th scope="col">Содержание</th>
@@ -27,17 +26,14 @@
                         <td><strong>{{$el->name}}</strong></td>
                         <td><a class="btn btn-outline-info" href="{{route('playlist.watch',$el->id)}}">Посмотреть</a></td>
                         <td>
-                            <a ><button type="button"  class="btn btn-outline-danger yd">Удалить</button></a>
+                            <a type="button"  class="btn btn-outline-danger yd" href="{{route('delete.videoPlaylist',$el->id)}}">Удалить</a>
                             <a type="button"  class="btn btn-outline-warning yd" href="{{route('update.playlist',$el->id)}}">Отредактировать</a>
                             <a><button type="button" class="btn btn-outline-success yd">Добавить видео</button></a>
                         </td>
                     </tr>
-
-
             @endforeach
             </table>
         </div>
-
     </div>
     <style scoped>
         .hy:hover {
@@ -45,31 +41,25 @@
             cursor: pointer;
             text-decoration: none;
         }
-
         .hy {
             transition: .5s ease;
             box-sizing: border-box;
             text-decoration: none;
         }
-
         a {
             text-decoration: none;
             color: #FFFFFF;
         }
-
-
         td {
             font-size: 1.5em;
             padding: 5px;
             text-align: left;
         }
-
         .first {
             font-size: 1em;
             font-weight: bold;
             text-align: center;
         }
-
         .temp {
             border: 5px solid #000000;
             margin-top: 20pt;
@@ -80,23 +70,18 @@
             border-color: #000000;
             width: 450pt;
             word-break: break-word;
-
         }
-
         img {
             padding: 15px;
         }
-
         * {
             box-sizing: border-box;
         }
-
         form {
             position: relative;
             width: 300px;
             margin: 0 auto;
         }
-
         input {
             width: 100%;
             height: 42px;
@@ -107,7 +92,6 @@
             background: #F9F0DA;
             color: #000000;
         }
-
         .flest {
             position: absolute;
             top: 0;

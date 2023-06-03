@@ -1,14 +1,11 @@
 @extends('layout')
 @section('title')Загрузка видео@endsection
 @section('main_content')
-
 <!DOCTYPE html>
 <html>
-
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
-
 <body>
     <div class="backform mt-5 ">
         <div class="panel panel-primary">
@@ -22,12 +19,9 @@
                     <strong>{{ $message }}</strong>
                 </div>
                 @endif
-
-
                 <form action="{{ route('video.upload') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-
                         <div class="col-md-12">
                             <div class="col-md-6 form-group">
                                 <label>Тема:</label>
@@ -45,21 +39,14 @@
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Выберите файл с видео:</label>
-                                {{-- <input type="file" name="video" class="form-control"/>--}}
-
                                 <input type="file" name="video" id="file_out" class="form-upload__input">
-
                                 @error('video')
                                 <div class="alert alert-danger">{{$message}}</div>
                                 @enderror
                             </div>
-
                             <div class="col-md-6 form-group">
                                 <label>Выберите файл превью вашего видео:</label>
-
-
                                 <input type="file" name="preview" id="preview_out" class="form-upload__input">
-
                                 @error('preview')
                                 <div class="alert alert-danger">{{$message}}</div>
                                 @enderror
@@ -69,17 +56,14 @@
                             </div>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
 </body>
-
 </html>
 @endsection
 <style>
-
     .backform{
         border-radius: 15px;
         width: 35%;
@@ -92,7 +76,6 @@
         font-weight: 300;
         font-family: inherit;
     }
-
     .form-upload__input::file-selector-button {
         margin-right: 20px;
         padding: 9px 15px;
@@ -103,7 +86,5 @@
         cursor: pointer;
     }
 </style
-
 <script>
-
 </script>

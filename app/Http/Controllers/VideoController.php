@@ -172,17 +172,12 @@ class VideoController extends Controller
         $this->validate($request, [
             'video_id' => 'required',
         ]);
-
         PlaylistVideo::create([
-
             'playlist_id' => $id,
             'video_id' => $request->video_id,
         ]);
-
         return redirect()->route('playlist.watch', $id)->with('success', 'Успешно');
     }
-
-
     public function ViewPlaylist()
     {
         return view('playlistCreate');
@@ -199,7 +194,6 @@ class VideoController extends Controller
 
         return view('viewMyPlaylist', ['playlist' => $playlist]);
     }
-
     public function SearchPlaylist()
     {
         $search = filter_input(INPUT_GET, 'search');
@@ -212,7 +206,6 @@ class VideoController extends Controller
 
         return view('viewMyPlaylist', ['playlist' => $playlist]);
     }
-
     public function ShowPlaylist($id)
     {
         $playlist = Playlist::find($id);
@@ -226,25 +219,8 @@ class VideoController extends Controller
         else
             return abort(404);
     }
-    //    public function DeletePlaylist($id){
-    //        $playlist = Playlist::find($id);
-    //        if($playlist->user->id != auth()->user()->id)
-    //            abort(403);
-    //        else
-    //        {
-    //            $comments = Comment::where('video_id', $id)->get();
-    //
-    //            foreach ($comments as $el) {
-    //                $el->delete();
-    //            }
-    //            $video->delete();
-    //            return redirect()->route('user.profile')->with('success', 'Видео было удалено');
-    //        }
-    //    }
-
     public function UpdatePlaylist(Request $request, $id)
     {
-
         $this->validate($request, [
             'name' => 'required|string|max:70',
         ]);
@@ -254,11 +230,51 @@ class VideoController extends Controller
         $playlist->name = $request->name;
         $playlist->save();
 
-        return view('update.playlist', ['playlist' => $playlist]);
+        return redirect()->route('view.all.playlists')->with('success', 'Плейлист был отредактирован');
+
     }
     public function GetUpdatePlaylist($id)
     {
         $playlist = Playlist::find($id);
         return view('updatePlaylist', ['playlist' => $playlist]);
+    }
+    public function DeletePlaylist($id)
+    {
+        $playlist = Playlist::find($id);
+        if ($playlist->user->id != auth()->user()->id)
+            abort(403);
+        else {
+            $video = Video::where('video_id', $id)->get();
+
+            foreach ($video as $el) {
+                $el->delete();
+            }
+            $playlist->delete();
+            return redirect()->route('view.all.playlists')->with('success', 'Видео было удалено');
+        }
+    }
+
+//    public function DeleteVideoPlaylist($id)
+//    {
+//        $video_id = PlaylistVideo::find($id);
+//        if ($video_id->user->id != auth()->user()->id){
+//
+//            $video_id->delete();
+//            return redirect()->route('user.profile')->with('success', 'Видео было удалено');
+//        }
+//    }
+
+    public function DeleteVideoPlaylist($id, $vidid )
+    {
+        $vids = PlaylistVideo::where('playlist_id',$id);
+
+        $vid = $vids->where('video_id',$vidid)->get();
+
+        $vid->delete();
+
+        return redirect()->route('playlist.watch', $id)->with('success', 'Успешно');
+    }
+    public function test($id,$vidid){
+        return 'id %'.$id.' vidid %'.$vidid;
     }
 }

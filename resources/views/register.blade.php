@@ -16,7 +16,6 @@
       <div class="alert alert-danger">{{$message}}</div>
       @enderror
     </div>
-
     <div class="form-group">
       <label for="password" class="form-label">Пароль</label>
       <input type="password" class="form-control" placeholder="Пароль" id="password" name="password" value="">
@@ -29,7 +28,6 @@
       <button type="submit" class="btn btn-success">Отправить</button>
     </div>
   </form>
-
 </div>
     <style>
         .container{

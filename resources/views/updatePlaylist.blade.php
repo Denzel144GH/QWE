@@ -1,14 +1,11 @@
 @extends('layout')
 @section('title')Обновление плейлиста@endsection
 @section('main_content')
-
     <!DOCTYPE html>
 <html>
-
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
-
 <body>
 <div class="backform mt-5">
     <div class="panel panel-primary">
@@ -44,7 +41,6 @@
     </div>
 </div>
 </body>
-
 </html>
 @endsection
 <style>
@@ -60,7 +56,6 @@
         font-weight: 300;
         font-family: inherit;
     }
-
     .form-upload__input::file-selector-button {
         margin-right: 20px;
         padding: 9px 15px;

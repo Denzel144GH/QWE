@@ -1,7 +1,6 @@
 @extends('layout')
-@section('title') @endsection
+@section('title'){{$video->title}}@endsection
 @section('main_content')
-
 <div class="container">
     <br>
     <video class="videow" controls
@@ -41,18 +40,14 @@
         <h3 class="txtcomment">{{$comment->content}}</h3>
     </div>
     @endforeach
-
 </div>
-
 <style>
     .image {
         border-radius: 50%;
     }
-
     * {
         box-sizing: border-box;
     }
-
     .videow{
         background-color: #000000;
         position: relative;
@@ -60,12 +55,9 @@
         width: 800px;
         height: 450px;
     }
-
-
     .form-inner {
         padding: 50px;
     }
-
     .form-inner input,
     .form-inner textarea {
         display: block;
@@ -77,26 +69,20 @@
         border-width: 0;
         border-radius: 20px;
     }
-
     .form-inner input {
         margin-top: 30px;
         background: #dddee0;
         font-size: 16px;
-
     }
-
     .form-inner textarea {
         resize: none;
     }
-
     .txtcomment {
         font-size: 16px;
         overflow-wrap: anywhere;
         margin-top: 15px;
         margin-left: 10px;
-
     }
-
     .xr {
         width: 60%;
         height: 70%;
