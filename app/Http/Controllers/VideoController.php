@@ -238,35 +238,25 @@ class VideoController extends Controller
         $playlist = Playlist::find($id);
         return view('updatePlaylist', ['playlist' => $playlist]);
     }
+
     public function DeletePlaylist($id)
     {
         $playlist = Playlist::find($id);
         if ($playlist->user->id != auth()->user()->id)
             abort(403);
         else {
-            $video = Video::where('video_id', $id)->get();
+            $video_id = PlaylistVideo::where('video_id', $id)->get();
 
-            foreach ($video as $el) {
+            foreach ($video_id as $el) {
                 $el->delete();
             }
             $playlist->delete();
-            return redirect()->route('view.all.playlists')->with('success', 'Видео было удалено');
+            return redirect()->route('playlist.watch')->with('success', 'Плейлист был удален');
         }
-    }
-
-//    public function DeleteVideoPlaylist($id)
-//    {
-//        $video_id = PlaylistVideo::find($id);
-//        if ($video_id->user->id != auth()->user()->id){
-//
-//            $video_id->delete();
-//            return redirect()->route('user.profile')->with('success', 'Видео было удалено');
-//        }
-//    }
-
-    public function DeleteVideoPlaylist($id, $vidid )
+        }
+    public function DeleteVideoPlaylist($id)
     {
-        $vids = PlaylistVideo::where('playlist_id',$id);
+        $vids = PlaylistVideo::where('playlist_id',$id)->first();
 
         $vid = $vids->where('video_id',$vidid)->get();
 
@@ -274,7 +264,9 @@ class VideoController extends Controller
 
         return redirect()->route('playlist.watch', $id)->with('success', 'Успешно');
     }
+
     public function test($id,$vidid){
         return 'id %'.$id.' vidid %'.$vidid;
     }
+
 }

@@ -18,7 +18,6 @@
         <a class="btn btn-outline-info" href="{{route('playlist.add.video.form',$playlist->id)}}">Добавить видео</a>
         <table class="table table-bordered mgtop ">
             <thead class="thead-light">
-
                 <tr>
                     <th scope="col">Имя</th>
                     <th scope="col">Превью</th>
@@ -43,7 +42,7 @@
                 <td><a class="btn btn-outline-info" href="{{route('video.watch',$el->video->id)}}">Посмотреть</a></td>
                 @if($playlist->user_id == Auth::user()->id)
                 <td>
-                    <form action="{{route('delete.videoPlaylist',['id'=>$playlist->id,'vidid'=>$el->id])}}" method="post">
+                    <form action="{{route('delete.videoPlaylist',['id'=>$playlist->id,'vidid'=>$el->video_id])}}" method="post">
                         @csrf
                         <button   class="btn btn-outline-danger yd" type="submit">Удалить</button>
                     </form>

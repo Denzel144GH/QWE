@@ -26,7 +26,6 @@
                         <td><strong>{{$el->name}}</strong></td>
                         <td><a class="btn btn-outline-info" href="{{route('playlist.watch',$el->id)}}">Посмотреть</a></td>
                         <td>
-                            <a type="button"  class="btn btn-outline-danger yd" href="{{route('delete.videoPlaylist',$el->id)}}">Удалить</a>
                             <a type="button"  class="btn btn-outline-warning yd" href="{{route('update.playlist',$el->id)}}">Отредактировать</a>
                             <a><button type="button" class="btn btn-outline-success yd">Добавить видео</button></a>
                         </td>
