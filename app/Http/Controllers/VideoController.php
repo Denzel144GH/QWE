@@ -254,12 +254,11 @@ class VideoController extends Controller
             return redirect()->route('playlist.watch')->with('success', 'Плейлист был удален');
         }
         }
-    public function DeleteVideoPlaylist($id)
+    public function DeleteVideoPlaylist($id, $vidid)
     {
-        $vids = PlaylistVideo::where('playlist_id',$id)->first();
+        $vids = PlaylistVideo::where('playlist_id', $id);
 
-        $vid = $vids->where('video_id',$vidid)->get();
-
+        $vid = $vids->where('video_id', $vidid)->first();
         $vid->delete();
 
         return redirect()->route('playlist.watch', $id)->with('success', 'Успешно');
