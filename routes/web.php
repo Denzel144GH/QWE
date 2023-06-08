@@ -87,6 +87,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/playlist/watch/{id}/deleteVideo/{vidid}', [VideoController::class, 'test']);
     Route::post('/playlist/watch/{id}/deleteVideo/{vidid}', [VideoController::class, 'DeleteVideoPlaylist'])->name('delete.videoPlaylist');
 
+    Route::get('/CreatePlaylist', [VideoController::class, 'ViewPlaylist']);
+    Route::post('/CreatePlaylist', [VideoController::class, 'CreatePlaylist'])->name('create.playlist');
+
 
     Route::post('/video/{id}', [VideoController::class, 'AddComment'])->name('coments.check');
 });
@@ -100,8 +103,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser']);
     Route::post('/RapidUser/{id}', [AdminPanelController::class, 'RapidUser'])->name('rapid.User');
 
-    Route::get('/CreatePlaylist', [VideoController::class, 'ViewPlaylist']);
-    Route::post('/CreatePlaylist', [VideoController::class, 'CreatePlaylist'])->name('create.playlist');
+
 
 
     Route::get('/deleteUser/{id}', [AdminPanelController::class, 'DeleteUser']);

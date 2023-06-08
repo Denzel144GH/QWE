@@ -11,7 +11,7 @@
         <a class="col temp hy text-dark" href="{{route('video.watch',$el->id)}}">
             <table>
                 <tr>
-                    <td rowspan="5" class="first"><img src="{{ Storage::url($el->preview) }}" width="256" height="256"></img></td>
+                    <td rowspan="5" class="first"><img  class="borderimg" src="{{ Storage::url($el->preview) }}" width="256" height="256"></img></td>
                     <td><strong>{{$el->title}}</strong></td>
                 </tr>
                 <tr>
@@ -94,6 +94,9 @@
         border-radius: 0 5px 5px 0;
         cursor: pointer;
         padding: 5px;
+    }
+    .borderimg{
+        border-radius:50% ;
     }
 </style>
 @endsection

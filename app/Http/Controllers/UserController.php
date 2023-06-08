@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 class UserController extends Controller
@@ -10,7 +11,9 @@ class UserController extends Controller
     {
         $user = User::find($request->id);
         if($user == null)
-            return abort(405);
+            return abort(404);
+        if ($user != Auth::user())
+            return abort(403);
         $this->validate($request, [
             'avatar' => 'file|mimes:jpg,jpeg,bmp,png'
         ]);
@@ -27,7 +30,7 @@ class UserController extends Controller
                 'email' => 'required|email|unique:users'
             ]);
         }
-        $user->role_id = 2;
+        $user->role_id = 1;
         $user->name = $request->name;
         if ($user->email != $request->email)
             $user->email = $request->email;
@@ -36,7 +39,13 @@ class UserController extends Controller
     }
     public function GetUpdateUser($id)
     {
+
         $user = User::find($id);
+        if($user == null)
+            return abort(404);
+        if ($user != Auth::user())
+            return abort(403);
         return view('updateProfileAsUser', ['users' => $user]);
+
     }
 }

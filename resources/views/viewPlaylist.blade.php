@@ -15,7 +15,9 @@
     @endif
     <div class="row">
         <h4 class="center">{{$playlist->name}}</h4>
+        @if($playlist->user_id == Auth::user()->id)
         <a class="btn btn-outline-info" href="{{route('playlist.add.video.form',$playlist->id)}}">Добавить видео</a>
+        @endif
         <table class="table table-bordered mgtop ">
             <thead class="thead-light">
                 <tr>
@@ -36,7 +38,7 @@
                     @if($el->video->preview == null)
                     <img src="{{ Storage::url('default.png') }}" alt="" class="_9Vd+W3TCjDmuEV7tOCemNA==">
                     @else
-                    <img src="{{ Storage::url($el->video->preview) }}" width="120" height="120" alt="" class="_9Vd+W3TCjDmuEV7tOCemNA==">
+                    <img  src="{{ Storage::url($el->video->preview) }}" width="120" height="120" alt="" class="_9Vd+W3TCjDmuEV7tOCemNA== borderimg">
                     @endif
                 </td>
                 <td><a class="btn btn-outline-info" href="{{route('video.watch',$el->video->id)}}">Посмотреть</a></td>
@@ -124,6 +126,10 @@
         display: block;
         margin-left: auto;
         margin-right: auto
+    }
+
+    .borderimg{
+        border-radius:50% ;
     }
 </style>
 @endsection

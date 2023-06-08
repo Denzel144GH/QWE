@@ -43,10 +43,10 @@
                         <td><strong>{{$el->title}}</strong></td>
                     </tr>
                     <tr>
-                        <td>{{$el->user_id}}</td>
+                        <td>Автор: {{$el->user->name}}</td>
                     </tr>
                     <tr>
-                        <td>{{$el->views}}</td>
+                        <td>Просмотры: {{$el->views}}</td>
                     </tr>
                     <tr>
                         <td>
