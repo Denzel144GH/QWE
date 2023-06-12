@@ -28,11 +28,11 @@
                         <td>
                             <form action="{{route('delete.playlist',$el->id)}}" method="post">
                                 @csrf
-                                <button   class="btn btn-outline-danger yd" type="submit">Удалить</button>
+                                <button   class="btn btn-outline-danger " type="submit">Удалить</button>
                             </form>
-                            <a   class="btn btn-outline-warning yd" href="{{route('update.playlist',$el->id)}}">Отредактировать</a>
-                            {{--                            <a><button type="button" class="btn btn-outline-success yd">Добавить видео</button></a>--}}
+                            <a   class="btn btn-outline-warning yd " href="{{route('update.playlist',$el->id)}}">Отредактировать</a>
                         </td>
+
                     </tr>
             @endforeach
             </table>
@@ -110,6 +110,10 @@
         }
         .mgtop{
             margin-top: 25px;
+        }
+        .yd{
+            position: relative;
+            top: -40px;
         }
     </style>
 @endsection

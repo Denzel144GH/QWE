@@ -121,10 +121,14 @@ class VideoController extends Controller
             abort(403);
         else {
             $comments = Comment::where('video_id', $id)->get();
-
+            $plvideos = PlaylistVideo::where('video_id',$id)->get();
             foreach ($comments as $el) {
                 $el->delete();
             }
+            foreach ($plvideos as $el) {
+                $el->delete();
+            }
+
             $video->delete();
             return redirect()->route('user.profile')->with('success', 'Видео было удалено');
         }
@@ -242,10 +246,12 @@ class VideoController extends Controller
     public function DeletePlaylist($id)
     {
         $playlist = Playlist::find($id);
-        if ($playlist->user_id->id != auth()->user()->id)
+
+        if ($playlist->user->id != auth()->user()->id)
             abort(403);
         else {
-            $video_id = PlaylistVideo::where('video_id', $id)->get();
+
+            $video_id = PlaylistVideo::where('playlist_id', $id)->get();
 
             foreach ($video_id as $el) {
                 $el->delete();
@@ -259,6 +265,7 @@ class VideoController extends Controller
         $vids = PlaylistVideo::where('playlist_id', $id);
 
         $vid = $vids->where('video_id', $vidid)->first();
+
         $vid->delete();
 
         return redirect()->route('playlist.watch', $id)->with('success', 'Успешно');

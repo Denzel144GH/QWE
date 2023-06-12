@@ -8,7 +8,7 @@ class Playlist extends Model
     protected $fillable = [
         'name','user_id','views',
     ];
-   public function video() {
-       return $this->hasOne(Video::class, 'id', 'user_id');
-   }
+    public function user() {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }
